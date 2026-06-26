@@ -1,105 +1,22 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import { Camera, Mail, Lock, User, Loader2, KeyRound, ArrowLeft } from 'lucide-react';
+import { Camera, Mail, Lock, User, Loader2 } from 'lucide-react';
 import { useCursor } from '../context/CursorContext';
 import ReCAPTCHA from 'react-google-recaptcha';
 import toast from 'react-hot-toast';
 
-// 6-box OTP input component
-function OtpInput({ value, onChange }) {
-  const inputs = useRef([]);
-
-  const handleChange = (idx, e) => {
-    const val = e.target.value.replace(/\D/g, '').slice(-1);
-    
-    // Reconstruct the 6 characters array, defaulting to ' ' for empty slots
-    const chars = Array.from({ length: 6 }, (_, i) => {
-      const char = value[i];
-      return (char && char !== ' ') ? char : ' ';
-    });
-    
-    chars[idx] = val || ' ';
-    onChange(chars.join(''));
-
-    // Auto-advance
-    if (val && idx < 5) {
-      inputs.current[idx + 1]?.focus();
-    }
-  };
-
-  const handleKeyDown = (idx, e) => {
-    if (e.key === 'Backspace') {
-      const chars = Array.from({ length: 6 }, (_, i) => {
-        const char = value[i];
-        return (char && char !== ' ') ? char : ' ';
-      });
-
-      if (chars[idx] !== ' ') {
-        return;
-      }
-
-      if (idx > 0) {
-        chars[idx - 1] = ' ';
-        onChange(chars.join(''));
-        inputs.current[idx - 1]?.focus();
-        e.preventDefault();
-      }
-    } else if (e.key === 'ArrowLeft' && idx > 0) {
-      inputs.current[idx - 1]?.focus();
-      e.preventDefault();
-    } else if (e.key === 'ArrowRight' && idx < 5) {
-      inputs.current[idx + 1]?.focus();
-      e.preventDefault();
-    }
-  };
-
-  const handlePaste = (e) => {
-    e.preventDefault();
-    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
-    onChange(pasted.padEnd(6, ' '));
-    // Focus last filled
-    const lastIdx = Math.min(pasted.length, 5);
-    inputs.current[lastIdx]?.focus();
-  };
-
-  return (
-    <div className="flex justify-center gap-3" onPaste={handlePaste}>
-      {Array.from({ length: 6 }).map((_, idx) => (
-        <input
-          key={idx}
-          ref={(el) => (inputs.current[idx] = el)}
-          type="text"
-          inputMode="numeric"
-          maxLength={1}
-          value={value[idx] && value[idx] !== ' ' ? value[idx] : ''}
-          onChange={(e) => handleChange(idx, e)}
-          onKeyDown={(e) => handleKeyDown(idx, e)}
-          className={`w-12 h-14 text-center text-2xl font-bold text-[#2d2d2d] border-b-2 bg-transparent outline-none transition-all ${
-            value[idx] && value[idx] !== ' '
-              ? 'border-[#2d2d2d] text-[#2d2d2d]'
-              : 'border-zinc-300 focus:border-[#2d2d2d]'
-          }`}
-        />
-      ))}
-    </div>
-  );
-}
 
 export function Auth({ isAdmin = false }) {
-  // Modes: 'login' | 'signup' | 'verifying'
+  // Modes: 'login' | 'signup'
   const [mode, setMode] = useState('login');
-  const [verifyingType, setVerifyingType] = useState('email'); // 'email' | 'signup'
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-  const [otpCode, setOtpCode] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [captchaToken, setCaptchaToken] = useState(null);
-  const [countdown, setCountdown] = useState(60);
-  const [canResend, setCanResend] = useState(false);
   const recaptchaRef = useRef(null);
 
-  const { login, signup, verifyOtp, signInWithGoogle, resendOtp } = useAuth();
+  const { login, signup, signInWithGoogle } = useAuth();
   const { setHovering, setDefault } = useCursor();
 
   const resetCaptcha = useCallback(() => {
@@ -123,37 +40,6 @@ export function Auth({ isAdmin = false }) {
     }
   }, []);
 
-  // ── OTP Timer ───────────────────────────────────────────────────────────
-  useEffect(() => {
-    let timer;
-    if (mode === 'verifying' && countdown > 0 && !canResend) {
-      timer = setInterval(() => {
-        setCountdown((prev) => prev - 1);
-      }, 1000);
-    } else if (countdown === 0) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setCanResend(true);
-    }
-    return () => clearInterval(timer);
-  }, [mode, countdown, canResend]);
-
-  const handleResendOtp = async () => {
-    if (!canResend) return;
-    setIsLoading(true);
-    setError('');
-    try {
-      const result = await resendOtp(formData.email);
-      if (result.success) {
-        setCountdown(60);
-        setCanResend(false);
-      } else {
-        setError(result.error);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   // ── Main form submit (login or signup) ──────────────────────────────────
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -173,41 +59,13 @@ export function Auth({ isAdmin = false }) {
         }
       } else {
         const result = await signup(formData.name, formData.email, formData.password);
-        if (result.success) {
-          if (result.requiresOtp) {
-            setVerifyingType('signup');
-            setMode('verifying');
-            setCountdown(60);
-            setCanResend(false);
-            resetCaptcha();
-          }
-        } else {
+        if (!result.success) {
           setError(result.error);
+          resetCaptcha();
         }
       }
     } catch {
       setError('Ndodhi një gabim i papritur. Provo sërish.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // ── OTP verification submit ─────────────────────────────────────────────
-  const handleVerifyOtp = async (e) => {
-    e.preventDefault();
-    const cleanedCode = otpCode.replace(/\s/g, '');
-    if (cleanedCode.length < 6) {
-      toast.error('Shkruaj kodin 6-shifror.');
-      return;
-    }
-    setError('');
-
-    setIsLoading(true);
-    try {
-      const result = await verifyOtp(formData.email, cleanedCode, verifyingType);
-      if (!result.success) setError(result.error);
-    } catch {
-      setError('Kodi është i gabuar ose ka skaduar. Provo sërish.');
     } finally {
       setIsLoading(false);
     }
@@ -221,85 +79,9 @@ export function Auth({ isAdmin = false }) {
   const switchMode = (newMode) => {
     setMode(newMode);
     setError('');
-    setOtpCode('');
     setFormData(prev => ({ ...prev, password: '' }));
     resetCaptcha();
   };
-
-  // ── OTP Verification View ───────────────────────────────────────────────
-  if (mode === 'verifying') {
-    return (
-      <div className="flex items-center justify-center px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          key="verifying"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-md w-full bg-[#FAF9F6] p-10 border border-[#E5DCC5] relative overflow-hidden"
-        >
-          <div className="absolute top-0 left-0 w-full h-1 bg-[#D4AF37]" />
-
-          <div className="text-center mb-8">
-            <div className="mx-auto w-14 h-14 bg-transparent border border-[#E5DCC5] rounded-full flex items-center justify-center mb-4">
-              <KeyRound className="w-6 h-6 text-[#1C1C1C]" />
-            </div>
-            <h2 className="text-2xl font-serif text-[#1C1C1C] uppercase tracking-widest mb-2">Verifiko Emailin</h2>
-            <p className="text-sm text-[#1C1C1C]/70 font-light">
-              Dërguam një kod 6-shifror te<br />
-              <span className="font-semibold text-[#444444]">{formData.email}</span>
-            </p>
-          </div>
-
-          <form onSubmit={handleVerifyOtp} className="space-y-8">
-            {error && (
-              <div className="text-[#8B0000] text-sm text-center tracking-wide font-medium">
-                {error}
-              </div>
-            )}
-
-            <OtpInput value={otpCode} onChange={(val) => { setOtpCode(val); if(error) setError(''); }} />
-
-              <button
-                type="submit"
-                disabled={isLoading || otpCode.replace(/\s/g, '').length < 6}
-                onMouseEnter={setHovering}
-                onMouseLeave={setDefault}
-                className="w-full flex justify-center py-3 px-4 text-sm font-bold uppercase tracking-widest text-[#FAF9F6] bg-[#1C1C1C] hover:bg-[#333333] transition-all disabled:opacity-50 disabled:bg-[#1C1C1C]/50"
-              >
-                {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Konfirmo Kodin'}
-              </button>
-
-              <div className="flex flex-col items-center gap-4 mt-6 pt-6 border-t border-zinc-100">
-                <div className="text-sm text-[#707070]">
-                  {canResend ? (
-                    <button
-                      type="button"
-                      onClick={handleResendOtp}
-                      disabled={isLoading}
-                      className="font-semibold text-[#2d2d2d] hover:text-[#555555] underline underline-offset-4 transition-colors disabled:opacity-50"
-                    >
-                      Dërgo një kod të ri
-                    </button>
-                  ) : (
-                    <span>Mund të ridërgosh kodin pas <strong className="text-[#2d2d2d]">{countdown}s</strong></span>
-                  )}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => switchMode('signup')}
-                  onMouseEnter={setHovering}
-                  onMouseLeave={setDefault}
-                  className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-[#444444] transition-colors"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                  Kthehu mbrapa
-                </button>
-              </div>
-            </form>
-          </motion.div>
-        </div>
-      );
-    }
 
   // ── Login / Signup View ─────────────────────────────────────────────────
   return (
