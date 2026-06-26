@@ -36,24 +36,24 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <a 
-                  href="tel:+1234567890" 
+                  href="tel:+355695620202" 
                   className="flex items-center gap-2 text-[#c8c8c8] hover:text-white text-sm transition-colors w-fit"
                   onMouseEnter={setHovering}
                   onMouseLeave={setDefault}
                 >
                   <Phone className="w-4 h-4" />
-                  +1 (234) 567-890
+                  +355 069 562 0202
                 </a>
               </li>
               <li>
                 <a 
-                  href="mailto:hello@2bvision.com" 
+                  href="mailto:2bvision.2b.al@gmail.com" 
                   className="flex items-center gap-2 text-[#c8c8c8] hover:text-white text-sm transition-colors w-fit"
                   onMouseEnter={setHovering}
                   onMouseLeave={setDefault}
                 >
                   <Mail className="w-4 h-4" />
-                  hello@2bvision.com
+                  2bvision.2b.al@gmail.com
                 </a>
               </li>
             </ul>
