@@ -26,7 +26,7 @@ function Counter({ end, suffix = "", duration = 2 }) {
 
 export function Stats() {
   return (
-    <section id="stats" className="py-20 bg-slate-900 border-y border-slate-800">
+    <section id="stats" className="py-20 bg-[#1e1e1e] border-y border-[#2d2d2d]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           

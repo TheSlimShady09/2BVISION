@@ -1,5 +1,5 @@
 
-import { Camera, MessageCircle, Phone, Mail, Image as ImageIcon } from 'lucide-react';
+import { MessageCircle, Phone, Mail, Image as ImageIcon } from 'lucide-react';
 import { useCursor } from '../../context/CursorContext';
 import { Link } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ export function Footer() {
   const { setHovering, setDefault } = useCursor();
 
   return (
-    <footer className="bg-slate-800 border-t border-slate-700 pt-16 pb-8 text-white">
+    <footer className="bg-[#1e1e1e] border-t border-[#383838] pt-16 pb-8 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="col-span-1 md:col-span-2">
@@ -17,10 +17,16 @@ export function Footer() {
               onMouseEnter={setHovering}
               onMouseLeave={setDefault}
             >
-              <Camera className="w-6 h-6 text-white" />
-              <span className="font-bold text-lg tracking-widest text-white uppercase">2B Vision</span>
+              <img
+                src="/logo.png"
+                alt="2B Vision Logo"
+                className="h-10 w-auto object-contain brightness-0 invert"
+              />
+              <span className="font-bold text-lg tracking-widest text-white uppercase">
+                2B Vision
+              </span>
             </Link>
-            <p className="text-slate-300 text-sm leading-relaxed max-w-sm">
+            <p className="text-[#c8c8c8] text-sm leading-relaxed max-w-sm">
               Capturing moments with cinematic precision. Premium photography and videography for weddings, commercial projects, and high-end portraits.
             </p>
           </div>
@@ -31,7 +37,7 @@ export function Footer() {
               <li>
                 <a 
                   href="tel:+1234567890" 
-                  className="flex items-center gap-2 text-slate-300 hover:text-white text-sm transition-colors w-fit"
+                  className="flex items-center gap-2 text-[#c8c8c8] hover:text-white text-sm transition-colors w-fit"
                   onMouseEnter={setHovering}
                   onMouseLeave={setDefault}
                 >
@@ -42,7 +48,7 @@ export function Footer() {
               <li>
                 <a 
                   href="mailto:hello@2bvision.com" 
-                  className="flex items-center gap-2 text-slate-300 hover:text-white text-sm transition-colors w-fit"
+                  className="flex items-center gap-2 text-[#c8c8c8] hover:text-white text-sm transition-colors w-fit"
                   onMouseEnter={setHovering}
                   onMouseLeave={setDefault}
                 >
@@ -58,7 +64,7 @@ export function Footer() {
             <div className="flex gap-4">
               <a 
                 href="#" 
-                className="p-2 bg-slate-700 rounded-full text-slate-300 hover:text-white hover:bg-slate-600 transition-all"
+                className="p-2 bg-[#383838] rounded-full text-[#c8c8c8] hover:text-white hover:bg-slate-600 transition-all"
                 onMouseEnter={setHovering}
                 onMouseLeave={setDefault}
               >
@@ -66,7 +72,7 @@ export function Footer() {
               </a>
               <a 
                 href="#" 
-                className="p-2 bg-slate-700 rounded-full text-slate-300 hover:text-white hover:bg-slate-600 transition-all"
+                className="p-2 bg-[#383838] rounded-full text-[#c8c8c8] hover:text-white hover:bg-slate-600 transition-all"
                 onMouseEnter={setHovering}
                 onMouseLeave={setDefault}
               >
@@ -76,7 +82,7 @@ export function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-slate-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="border-t border-[#383838] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-slate-400 text-sm">
             &copy; {new Date().getFullYear()} 2B Vision. All rights reserved.
           </p>

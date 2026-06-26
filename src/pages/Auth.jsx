@@ -75,10 +75,10 @@ function OtpInput({ value, onChange }) {
           value={value[idx] && value[idx] !== ' ' ? value[idx] : ''}
           onChange={(e) => handleChange(idx, e)}
           onKeyDown={(e) => handleKeyDown(idx, e)}
-          className={`w-12 h-14 text-center text-2xl font-bold text-slate-900 border-b-2 bg-transparent outline-none transition-all ${
+          className={`w-12 h-14 text-center text-2xl font-bold text-[#2d2d2d] border-b-2 bg-transparent outline-none transition-all ${
             value[idx] && value[idx] !== ' '
-              ? 'border-slate-800 text-slate-900'
-              : 'border-zinc-300 focus:border-slate-800'
+              ? 'border-[#2d2d2d] text-[#2d2d2d]'
+              : 'border-zinc-300 focus:border-[#2d2d2d]'
           }`}
         />
       ))}
@@ -245,7 +245,7 @@ export function Auth({ isAdmin = false }) {
             <h2 className="text-2xl font-serif text-[#1C1C1C] uppercase tracking-widest mb-2">Verifiko Emailin</h2>
             <p className="text-sm text-[#1C1C1C]/70 font-light">
               Dërguam një kod 6-shifror te<br />
-              <span className="font-semibold text-slate-700">{formData.email}</span>
+              <span className="font-semibold text-[#444444]">{formData.email}</span>
             </p>
           </div>
 
@@ -269,18 +269,18 @@ export function Auth({ isAdmin = false }) {
               </button>
 
               <div className="flex flex-col items-center gap-4 mt-6 pt-6 border-t border-zinc-100">
-                <div className="text-sm text-slate-500">
+                <div className="text-sm text-[#707070]">
                   {canResend ? (
                     <button
                       type="button"
                       onClick={handleResendOtp}
                       disabled={isLoading}
-                      className="font-semibold text-slate-900 hover:text-slate-600 underline underline-offset-4 transition-colors disabled:opacity-50"
+                      className="font-semibold text-[#2d2d2d] hover:text-[#555555] underline underline-offset-4 transition-colors disabled:opacity-50"
                     >
                       Dërgo një kod të ri
                     </button>
                   ) : (
-                    <span>Mund të ridërgosh kodin pas <strong className="text-slate-900">{countdown}s</strong></span>
+                    <span>Mund të ridërgosh kodin pas <strong className="text-[#2d2d2d]">{countdown}s</strong></span>
                   )}
                 </div>
 
@@ -289,7 +289,7 @@ export function Auth({ isAdmin = false }) {
                   onClick={() => switchMode('signup')}
                   onMouseEnter={setHovering}
                   onMouseLeave={setDefault}
-                  className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-slate-700 transition-colors"
+                  className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-[#444444] transition-colors"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   Kthehu mbrapa
@@ -334,7 +334,7 @@ export function Auth({ isAdmin = false }) {
               onClick={signInWithGoogle}
               onMouseEnter={setHovering}
               onMouseLeave={setDefault}
-              className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-zinc-200 bg-white hover:bg-zinc-50 transition-all text-sm font-semibold text-slate-700"
+              className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-zinc-200 bg-white hover:bg-zinc-50 transition-all text-sm font-semibold text-[#444444]"
             >
               <svg viewBox="0 0 24 24" className="w-5 h-5">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -446,7 +446,7 @@ export function Auth({ isAdmin = false }) {
                   onClick={() => switchMode(mode === 'login' ? 'signup' : 'login')}
                   onMouseEnter={setHovering}
                   onMouseLeave={setDefault}
-                  className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
+                  className="text-sm font-medium text-[#707070] hover:text-[#2d2d2d] transition-colors"
                 >
                   {mode === 'login'
                     ? "Nuk ke llogari? Regjistrohu"

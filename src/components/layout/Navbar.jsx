@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Camera, Menu, X, User } from 'lucide-react';
+import { Menu, X, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../lib/utils';
 import { useAuth } from '../../context/AuthContext';
@@ -112,8 +112,17 @@ export function Navbar() {
               onMouseEnter={setHovering}
               onMouseLeave={setDefault}
             >
-              <Camera className={cn("w-8 h-8 transition-all group-hover:scale-110 duration-300", isTransparent ? "text-white" : "text-slate-800")} />
-              <span className={cn("font-bold text-xl tracking-widest uppercase transition-colors", isTransparent ? "text-white" : "text-slate-800")}>2B Vision</span>
+              <img
+                src="/logo.png"
+                alt="2B Vision Logo"
+                className={cn(
+                  "h-12 w-auto object-contain transition-all duration-300 group-hover:scale-110",
+                  isTransparent ? "brightness-0 invert" : "brightness-0"
+                )}
+              />
+              <span className={cn("font-bold text-xl tracking-widest uppercase transition-colors", isTransparent ? "text-white" : "text-[#383838]")}>
+                2B Vision
+              </span>
             </a>
           </div>
           <div className="hidden md:block">
@@ -129,14 +138,14 @@ export function Navbar() {
                     "text-sm font-medium tracking-wide transition-colors relative",
                     isTransparent
                       ? (activeSection === link.path ? "text-white" : "text-white/70 hover:text-white")
-                      : (activeSection === link.path ? "text-slate-900" : "text-slate-500 hover:text-slate-900")
+                      : (activeSection === link.path ? "text-[#2d2d2d]" : "text-[#707070] hover:text-[#2d2d2d]")
                   )}
                 >
                   {link.name}
                   {activeSection === link.path && (
                     <motion.div
                       layoutId="underline"
-                      className={cn("absolute -bottom-1 left-0 right-0 h-0.5", isTransparent ? "bg-white" : "bg-slate-800")}
+                      className={cn("absolute -bottom-1 left-0 right-0 h-0.5", isTransparent ? "bg-white" : "bg-white")}
                     />
                   )}
                 </a>
@@ -150,7 +159,7 @@ export function Navbar() {
                   "flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-colors",
                   isTransparent
                     ? "bg-white/20 text-white hover:bg-white/30 backdrop-blur-md"
-                    : (activeSection === 'dashboard' ? "bg-slate-800 text-white" : "bg-slate-700 text-white hover:bg-slate-800")
+                    : (activeSection === 'dashboard' ? "bg-[#2d2d2d] text-white" : "bg-[#383838] text-white hover:bg-[#2d2d2d]")
                 )}
               >
                 {user ? (
@@ -168,7 +177,7 @@ export function Navbar() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={cn("inline-flex items-center justify-center p-2 rounded-md focus:outline-none transition-colors", 
-                isTransparent ? "text-white hover:bg-white/10" : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"
+                isTransparent ? "text-white hover:bg-white/10" : "text-[#707070] hover:text-[#2d2d2d] hover:bg-zinc-100"
               )}
             >
               <span className="sr-only">Open main menu</span>
@@ -199,8 +208,8 @@ export function Navbar() {
                   className={cn(
                     "block px-3 py-2 rounded-md text-base font-medium",
                     activeSection === link.path
-                      ? "bg-slate-100 text-slate-900"
-                      : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                      ? "bg-zinc-100 text-[#2d2d2d]"
+                      : "text-[#707070] hover:bg-zinc-50 hover:text-[#2d2d2d]"
                   )}
                 >
                   {link.name}
@@ -208,7 +217,7 @@ export function Navbar() {
               ))}
               <button
                 onClick={(e) => handleNavClick(e, 'dashboard')}
-                className="w-full block px-3 py-2 mt-4 rounded-md text-base font-semibold bg-slate-800 text-white text-center"
+                className="w-full block px-3 py-2 mt-4 rounded-md text-base font-semibold bg-[#2d2d2d] text-white text-center"
               >
                 {user ? 'Dashboard' : 'Client Portal'}
               </button>

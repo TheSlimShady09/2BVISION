@@ -1,5 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, Component } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+
+class ErrorBoundary extends Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  render() {
+    if (this.state.error) {
+      return (
+        <div style={{ padding: 40, fontFamily: 'monospace', background: '#fff', minHeight: '100vh' }}>
+          <h2 style={{ color: 'red' }}>App Error</h2>
+          <pre style={{ whiteSpace: 'pre-wrap', color: '#333' }}>{this.state.error?.message}</pre>
+          <pre style={{ whiteSpace: 'pre-wrap', color: '#999', fontSize: 12 }}>{this.state.error?.stack}</pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { BookingProvider } from './context/BookingContext';
@@ -81,20 +98,22 @@ function PublicLayout() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <BookingProvider>
-          <Toaster position="bottom-center" toastOptions={{ className: 'rounded-none border border-slate-200 text-sm tracking-wider font-medium' }} />
-          <Routes>
-            {/* Admin — completely isolated, no Navbar/Footer/Cursor */}
-            <Route path="/admin" element={<AdminDashboard />} />
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AuthProvider>
+          <BookingProvider>
+            <Toaster position="bottom-center" toastOptions={{ className: 'rounded-none border border-zinc-200 text-sm tracking-wider font-medium' }} />
+            <Routes>
+              {/* Admin — completely isolated, no Navbar/Footer/Cursor */}
+              <Route path="/admin" element={<AdminDashboard />} />
 
-            {/* Everything else — wrapped in public layout */}
-            <Route path="/*" element={<PublicLayout />} />
-          </Routes>
-        </BookingProvider>
-      </AuthProvider>
-    </BrowserRouter>
+              {/* Everything else — wrapped in public layout */}
+              <Route path="/*" element={<PublicLayout />} />
+            </Routes>
+          </BookingProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 }
 

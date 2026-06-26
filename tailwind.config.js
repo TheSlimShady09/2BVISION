@@ -8,18 +8,31 @@ export default {
     extend: {
       colors: {
         background: '#ffffff',
-        foreground: '#1e293b', // slate-800
+        foreground: '#1e293b',
+        charcoal: {
+          50:  '#f5f5f5',
+          100: '#e8e8e8',
+          200: '#c8c8c8',
+          300: '#a0a0a0',
+          400: '#707070',
+          500: '#555555',
+          600: '#444444',
+          700: '#383838',
+          800: '#2d2d2d',
+          900: '#1e1e1e',
+          950: '#141414',
+        },
         primary: {
-          DEFAULT: '#1e293b',
+          DEFAULT: '#2d2d2d',
           foreground: '#ffffff',
         },
         muted: {
-          DEFAULT: '#f8fafc', // slate-50
-          foreground: '#64748b', // slate-500
+          DEFAULT: '#383838',
+          foreground: '#a0a0a0',
         },
         accent: {
-          DEFAULT: '#f1f5f9', // slate-100
-          foreground: '#0f172a', // slate-900
+          DEFAULT: '#444444',
+          foreground: '#ffffff',
         }
       }
     },

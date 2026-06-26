@@ -125,7 +125,7 @@ export function AdminPanel() {
   if (user?.role !== 'admin') {
     return (
       <div className="min-h-[50vh] flex items-center justify-center bg-zinc-50">
-        <div className="text-slate-500 font-light text-lg">Unauthorized Access</div>
+        <div className="text-[#707070] font-light text-lg">Unauthorized Access</div>
       </div>
     );
   }
@@ -136,8 +136,8 @@ export function AdminPanel() {
         
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-8 border border-zinc-200 shadow-sm">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-1 uppercase tracking-widest">Admin Control</h1>
-            <p className="text-slate-500 font-light">Manage studio operations and content.</p>
+            <h1 className="text-3xl font-bold text-[#2d2d2d] mb-1 uppercase tracking-widest">Admin Control</h1>
+            <p className="text-[#707070] font-light">Manage studio operations and content.</p>
           </div>
         </div>
 
@@ -153,7 +153,7 @@ export function AdminPanel() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 pb-4 text-sm font-bold uppercase tracking-widest transition-colors ${
-                activeTab === tab.id ? 'text-slate-900 border-b-2 border-slate-900' : 'text-slate-400 hover:text-slate-600'
+                activeTab === tab.id ? 'text-[#2d2d2d] border-b-2 border-[#1e1e1e]' : 'text-slate-400 hover:text-[#555555]'
               }`}
             >
               <tab.icon className="w-4 h-4" />
@@ -165,7 +165,7 @@ export function AdminPanel() {
         {/* Tab Content */}
         {isLoading ? (
           <div className="flex justify-center py-24">
-            <Loader2 className="w-10 h-10 animate-spin text-slate-300" />
+            <Loader2 className="w-10 h-10 animate-spin text-[#c8c8c8]" />
           </div>
         ) : (
           <motion.div
@@ -177,12 +177,12 @@ export function AdminPanel() {
             
             {activeTab === 'bookings' && (
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6">Booking Management</h2>
-                {bookings.length === 0 ? <p className="text-slate-500">No bookings found.</p> : (
+                <h2 className="text-2xl font-bold text-[#2d2d2d] mb-6">Booking Management</h2>
+                {bookings.length === 0 ? <p className="text-[#707070]">No bookings found.</p> : (
                   <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                       <thead>
-                        <tr className="border-b border-zinc-200 text-xs uppercase tracking-widest text-slate-500">
+                        <tr className="border-b border-zinc-200 text-xs uppercase tracking-widest text-[#707070]">
                           <th className="pb-4 pr-4">Client</th>
                           <th className="pb-4 pr-4">Event</th>
                           <th className="pb-4 pr-4">Date & Time</th>
@@ -192,14 +192,14 @@ export function AdminPanel() {
                       </thead>
                       <tbody className="divide-y divide-zinc-100">
                         {bookings.map(booking => (
-                          <tr key={booking.id} className="text-sm text-slate-700">
-                            <td className="py-4 pr-4 font-medium text-slate-900">
+                          <tr key={booking.id} className="text-sm text-[#444444]">
+                            <td className="py-4 pr-4 font-medium text-[#2d2d2d]">
                               {booking.profiles?.full_name || booking.name}<br/>
                               <span className="text-xs text-slate-400 font-normal">{booking.profiles?.email || booking.email}</span>
                             </td>
                             <td className="py-4 pr-4">{booking.event_type}</td>
                             <td className="py-4 pr-4">{booking.booking_date ? new Date(booking.booking_date).toLocaleDateString() : '—'} at {booking.time}</td>
-                            <td className="py-4 pr-4"><span className="bg-slate-100 px-2 py-1 text-xs font-bold uppercase">{booking.package_id}</span></td>
+                            <td className="py-4 pr-4"><span className="bg-zinc-100 px-2 py-1 text-xs font-bold uppercase">{booking.package_id}</span></td>
                             <td className="py-4">
                               <select 
                                 value={booking.status} 
@@ -228,40 +228,40 @@ export function AdminPanel() {
             {activeTab === 'portfolio' && (
               <div className="space-y-10">
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Shto Projekt</h2>
+                  <h2 className="text-2xl font-bold text-[#2d2d2d] mb-6">Shto Projekt</h2>
                   <form onSubmit={handlePortfolioSubmit} className="max-w-xl space-y-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Titulli</label>
-                      <input required type="text" value={portfolioForm.title} onChange={e => setPortfolioForm({...portfolioForm, title: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-slate-900 outline-none focus:border-slate-800" />
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Titulli</label>
+                      <input required type="text" value={portfolioForm.title} onChange={e => setPortfolioForm({...portfolioForm, title: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-[#2d2d2d] outline-none focus:border-[#2d2d2d]" />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Lloji</label>
-                        <select value={portfolioForm.type} onChange={e => setPortfolioForm({...portfolioForm, type: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-slate-900 outline-none focus:border-slate-800">
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Lloji</label>
+                        <select value={portfolioForm.type} onChange={e => setPortfolioForm({...portfolioForm, type: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-[#2d2d2d] outline-none focus:border-[#2d2d2d]">
                           <option value="Photography">Photography</option>
                           <option value="Videography">Videography</option>
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Kategoria (p.sh. Dasëm)</label>
-                        <input required type="text" value={portfolioForm.category} onChange={e => setPortfolioForm({...portfolioForm, category: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-slate-900 outline-none focus:border-slate-800" />
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Kategoria (p.sh. Dasëm)</label>
+                        <input required type="text" value={portfolioForm.category} onChange={e => setPortfolioForm({...portfolioForm, category: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-[#2d2d2d] outline-none focus:border-[#2d2d2d]" />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">URL e Medias</label>
-                      <input required type="url" value={portfolioForm.url} onChange={e => setPortfolioForm({...portfolioForm, url: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-slate-900 outline-none focus:border-slate-800" />
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">URL e Medias</label>
+                      <input required type="url" value={portfolioForm.url} onChange={e => setPortfolioForm({...portfolioForm, url: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-[#2d2d2d] outline-none focus:border-[#2d2d2d]" />
                     </div>
-                    <button type="submit" className="w-full py-4 bg-slate-800 text-white font-bold tracking-widest uppercase text-sm hover:bg-slate-900 transition-all mt-4">
+                    <button type="submit" className="w-full py-4 bg-[#2d2d2d] text-white font-bold tracking-widest uppercase text-sm hover:bg-[#1e1e1e] transition-all mt-4">
                       Shto në Portfolio
                     </button>
                   </form>
                 </div>
 
                 <div className="border-t border-zinc-200 pt-8">
-                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Projektet Ekzistuese</h2>
+                  <h2 className="text-2xl font-bold text-[#2d2d2d] mb-6">Projektet Ekzistuese</h2>
                   {portfolioLoading ? (
                     <div className="flex justify-center py-12">
-                      <Loader2 className="w-8 h-8 animate-spin text-slate-300" />
+                      <Loader2 className="w-8 h-8 animate-spin text-[#c8c8c8]" />
                     </div>
                   ) : portfolioItems.length === 0 ? (
                     <p className="text-slate-400 font-light">Nuk ka projekte në portfolio aktualisht.</p>
@@ -269,7 +269,7 @@ export function AdminPanel() {
                     <div className="overflow-x-auto">
                       <table className="w-full text-left border-collapse">
                         <thead>
-                          <tr className="border-b border-zinc-200 text-xs uppercase tracking-widest text-slate-500">
+                          <tr className="border-b border-zinc-200 text-xs uppercase tracking-widest text-[#707070]">
                             <th className="pb-4 pr-4">Foto</th>
                             <th className="pb-4 pr-4">Titulli</th>
                             <th className="pb-4 pr-4">Lloji</th>
@@ -279,7 +279,7 @@ export function AdminPanel() {
                         </thead>
                         <tbody className="divide-y divide-zinc-100">
                           {portfolioItems.map(item => (
-                            <tr key={item.id} className="text-sm text-slate-700">
+                            <tr key={item.id} className="text-sm text-[#444444]">
                               <td className="py-3 pr-4">
                                 {item.type === 'Videography' ? (
                                   <div className="w-16 h-16 bg-zinc-200 flex items-center justify-center text-zinc-400 text-xs font-bold uppercase">Video</div>
@@ -287,11 +287,11 @@ export function AdminPanel() {
                                   <img src={item.url} alt={item.title} className="w-16 h-16 object-cover bg-zinc-100" onError={e => { e.target.style.display='none'; }} />
                                 )}
                               </td>
-                              <td className="py-3 pr-4 font-medium text-slate-900">{item.title}</td>
+                              <td className="py-3 pr-4 font-medium text-[#2d2d2d]">{item.title}</td>
                               <td className="py-3 pr-4">
-                                <span className="bg-slate-100 px-2 py-1 text-xs font-bold uppercase">{item.type}</span>
+                                <span className="bg-zinc-100 px-2 py-1 text-xs font-bold uppercase">{item.type}</span>
                               </td>
-                              <td className="py-3 pr-4 text-slate-500">{item.category}</td>
+                              <td className="py-3 pr-4 text-[#707070]">{item.category}</td>
                               <td className="py-3">
                                 <button
                                   onClick={() => handlePortfolioDelete(item.id)}
@@ -313,19 +313,19 @@ export function AdminPanel() {
 
             {activeTab === 'messages' && (
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6">Contact Messages</h2>
-                {messages.length === 0 ? <p className="text-slate-500">No messages found.</p> : (
+                <h2 className="text-2xl font-bold text-[#2d2d2d] mb-6">Contact Messages</h2>
+                {messages.length === 0 ? <p className="text-[#707070]">No messages found.</p> : (
                   <div className="space-y-4">
                     {messages.map(msg => (
                       <div key={msg.id} className="border border-zinc-200 p-6 bg-zinc-50">
                         <div className="flex justify-between items-start mb-4">
                           <div>
-                            <h4 className="font-bold text-slate-900">{msg.name}</h4>
-                            <p className="text-sm text-slate-500">{msg.email}</p>
+                            <h4 className="font-bold text-[#2d2d2d]">{msg.name}</h4>
+                            <p className="text-sm text-[#707070]">{msg.email}</p>
                           </div>
                           <span className="text-xs text-slate-400 font-bold uppercase">{new Date(msg.created_at).toLocaleDateString()}</span>
                         </div>
-                        <p className="text-slate-700 font-light leading-relaxed">{msg.message}</p>
+                        <p className="text-[#444444] font-light leading-relaxed">{msg.message}</p>
                       </div>
                     ))}
                   </div>
@@ -336,14 +336,14 @@ export function AdminPanel() {
             {activeTab === 'deliverables' && (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Assign Deliverable</h2>
+                  <h2 className="text-2xl font-bold text-[#2d2d2d] mb-6">Assign Deliverable</h2>
                   <form onSubmit={handleDeliverableSubmit} className="space-y-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Select Booking</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Select Booking</label>
                       <select required value={deliverableForm.booking_id} onChange={e => {
                         const b = bookings.find(x => x.id === e.target.value);
                         setDeliverableForm({...deliverableForm, booking_id: b.id, user_id: b.user_id});
-                      }} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-slate-900 outline-none focus:border-slate-800">
+                      }} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-[#2d2d2d] outline-none focus:border-[#2d2d2d]">
                         <option value="">-- Choose Booking --</option>
                         {bookings.filter(b => b.status === 'Completed').map(b => (
                           <option key={b.id} value={b.id}>{b.profiles?.full_name || b.event_type} ({b.booking_date ? new Date(b.booking_date).toLocaleDateString() : '—'})</option>
@@ -351,34 +351,34 @@ export function AdminPanel() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Type</label>
-                      <select value={deliverableForm.type} onChange={e => setDeliverableForm({...deliverableForm, type: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-slate-900 outline-none focus:border-slate-800">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Type</label>
+                      <select value={deliverableForm.type} onChange={e => setDeliverableForm({...deliverableForm, type: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-[#2d2d2d] outline-none focus:border-[#2d2d2d]">
                         <option value="Gallery">Photo Gallery</option>
                         <option value="Video">Video Link</option>
                         <option value="Zip">ZIP Download</option>
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Deliverable URL</label>
-                      <input required type="url" value={deliverableForm.url} onChange={e => setDeliverableForm({...deliverableForm, url: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-slate-900 outline-none focus:border-slate-800" />
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Deliverable URL</label>
+                      <input required type="url" value={deliverableForm.url} onChange={e => setDeliverableForm({...deliverableForm, url: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-[#2d2d2d] outline-none focus:border-[#2d2d2d]" />
                     </div>
-                    <button type="submit" className="w-full py-4 bg-slate-800 text-white font-bold tracking-widest uppercase text-sm hover:bg-slate-900 transition-all mt-4">
+                    <button type="submit" className="w-full py-4 bg-[#2d2d2d] text-white font-bold tracking-widest uppercase text-sm hover:bg-[#1e1e1e] transition-all mt-4">
                       Assign to Client
                     </button>
                   </form>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Recent Deliverables</h2>
+                  <h2 className="text-2xl font-bold text-[#2d2d2d] mb-6">Recent Deliverables</h2>
                   <div className="space-y-4">
                     {deliverables.map(del => (
                       <div key={del.id} className="border border-zinc-200 p-4 flex items-center justify-between">
                         <div>
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="bg-slate-100 px-2 py-1 text-xs font-bold uppercase tracking-widest text-slate-600">{del.type}</span>
+                            <span className="bg-zinc-100 px-2 py-1 text-xs font-bold uppercase tracking-widest text-[#555555]">{del.type}</span>
                           </div>
-                          <p className="text-sm font-medium text-slate-900">{del.bookings?.event_type}</p>
+                          <p className="text-sm font-medium text-[#2d2d2d]">{del.bookings?.event_type}</p>
                         </div>
-                        <a href={del.url} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-slate-900 transition-colors">
+                        <a href={del.url} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-[#2d2d2d] transition-colors">
                           <CheckCircle className="w-5 h-5" />
                         </a>
                       </div>

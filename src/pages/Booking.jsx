@@ -133,8 +133,8 @@ export function Booking() {
             className="bg-zinc-50 p-12 border border-zinc-200 text-center w-full my-32"
           >
             <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Booking Confirmed!</h2>
-            <p className="text-slate-500 mb-8">
+            <h2 className="text-3xl font-bold text-[#2d2d2d] mb-4">Booking Confirmed!</h2>
+            <p className="text-[#707070] mb-8">
               Your session has been successfully booked. Please check your Client Portal.
             </p>
           </motion.div>
@@ -145,11 +145,11 @@ export function Booking() {
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-4xl md:text-6xl font-bold uppercase tracking-widest text-slate-900 mb-4"
+                className="text-4xl md:text-6xl font-bold uppercase tracking-widest text-[#2d2d2d] mb-4"
               >
                 Book a Session
               </motion.h2>
-              <p className="text-slate-500 max-w-2xl mx-auto font-light">
+              <p className="text-[#707070] max-w-2xl mx-auto font-light">
                 Select your preferred date and time to reserve your cinematic experience.
               </p>
             </div>
@@ -163,7 +163,7 @@ export function Booking() {
                 className="bg-zinc-50 p-8 border border-zinc-200"
               >
                 <div className="flex items-center justify-between mb-8">
-                  <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                  <h3 className="text-2xl font-bold text-[#2d2d2d] flex items-center gap-2">
                     <CalendarIcon className="w-5 h-5 text-slate-400" />
                     Select Date
                   </h3>
@@ -171,19 +171,19 @@ export function Booking() {
                     <button 
                       onClick={handlePrevMonth} 
                       type="button" 
-                      className="p-2 text-slate-400 hover:text-slate-900 transition-colors"
+                      className="p-2 text-slate-400 hover:text-[#2d2d2d] transition-colors"
                       onMouseEnter={setHovering}
                       onMouseLeave={setDefault}
                     >
                       <ChevronLeft className="w-5 h-5" />
                     </button>
-                    <span className="text-slate-900 font-medium min-w-[120px] text-center">
+                    <span className="text-[#2d2d2d] font-medium min-w-[120px] text-center">
                       {format(currentMonth, 'MMMM yyyy')}
                     </span>
                     <button 
                       onClick={handleNextMonth} 
                       type="button" 
-                      className="p-2 text-slate-400 hover:text-slate-900 transition-colors"
+                      className="p-2 text-slate-400 hover:text-[#2d2d2d] transition-colors"
                       onMouseEnter={setHovering}
                       onMouseLeave={setDefault}
                     >
@@ -214,9 +214,9 @@ export function Booking() {
                         disabled={isPast || !isCurrentMonth}
                         className={`aspect-square flex items-center justify-center text-sm font-medium transition-all
                           ${!isCurrentMonth ? 'opacity-0 pointer-events-none' : ''}
-                          ${isPast ? 'text-zinc-300' : 'hover:bg-zinc-200 text-slate-700'}
-                          ${isSelected ? 'bg-slate-800 text-white hover:bg-slate-900 shadow-md' : ''}
-                          ${isToday(day) && !isSelected ? 'border border-slate-300 text-slate-900' : ''}
+                          ${isPast ? 'text-zinc-300' : 'hover:bg-zinc-200 text-[#444444]'}
+                          ${isSelected ? 'bg-[#2d2d2d] text-white hover:bg-[#1e1e1e] shadow-md' : ''}
+                          ${isToday(day) && !isSelected ? 'border border-slate-300 text-[#2d2d2d]' : ''}
                         `}
                       >
                         {isCurrentMonth ? format(day, 'd') : ''}
@@ -233,7 +233,7 @@ export function Booking() {
                       exit={{ opacity: 0, height: 0 }}
                       className="mt-8 overflow-hidden"
                     >
-                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                      <h4 className="text-xs font-bold text-[#707070] uppercase tracking-wider mb-4 flex items-center gap-2">
                         <Clock className="w-4 h-4" /> Available Times
                       </h4>
                       <div className="grid grid-cols-3 gap-3">
@@ -246,8 +246,8 @@ export function Booking() {
                             onMouseLeave={setDefault}
                             className={`py-3 text-sm font-medium transition-all border ${
                               selectedTime === time 
-                                ? 'bg-slate-800 text-white border-slate-800' 
-                                : 'bg-white text-slate-600 border-zinc-200 hover:border-slate-400 hover:text-slate-900'
+                                ? 'bg-[#2d2d2d] text-white border-[#2d2d2d]' 
+                                : 'bg-white text-[#555555] border-zinc-200 hover:border-slate-400 hover:text-[#2d2d2d]'
                             }`}
                           >
                             {time}
@@ -266,54 +266,54 @@ export function Booking() {
                 viewport={{ once: true }}
                 className="bg-zinc-50 p-8 border border-zinc-200"
               >
-                <h3 className="text-2xl font-bold text-slate-900 mb-8">Details</h3>
+                <h3 className="text-2xl font-bold text-[#2d2d2d] mb-8">Details</h3>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 gap-6">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Full Name</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Full Name</label>
                       <input
                         type="text"
                         name="name"
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full bg-white border border-zinc-200 px-4 py-3 text-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-800 focus:border-slate-800 transition-all"
+                        className="w-full bg-white border border-zinc-200 px-4 py-3 text-[#2d2d2d] focus:outline-none focus:ring-1 focus:ring-[#2d2d2d] focus:border-[#2d2d2d] transition-all"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Email Address</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Email Address</label>
                       <input
                         type="email"
                         name="email"
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full bg-white border border-zinc-200 px-4 py-3 text-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-800 focus:border-slate-800 transition-all"
+                        className="w-full bg-white border border-zinc-200 px-4 py-3 text-[#2d2d2d] focus:outline-none focus:ring-1 focus:ring-[#2d2d2d] focus:border-[#2d2d2d] transition-all"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Phone Number</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Phone Number</label>
                       <input
                         type="tel"
                         name="phone"
                         required
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full bg-white border border-zinc-200 px-4 py-3 text-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-800 focus:border-slate-800 transition-all"
+                        className="w-full bg-white border border-zinc-200 px-4 py-3 text-[#2d2d2d] focus:outline-none focus:ring-1 focus:ring-[#2d2d2d] focus:border-[#2d2d2d] transition-all"
                       />
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Event Type</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Event Type</label>
                         <select
                           name="eventType"
                           value={formData.eventType}
                           onChange={handleChange}
-                          className="w-full bg-white border border-zinc-200 px-4 py-3 text-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-800 focus:border-slate-800 transition-all appearance-none"
+                          className="w-full bg-white border border-zinc-200 px-4 py-3 text-[#2d2d2d] focus:outline-none focus:ring-1 focus:ring-[#2d2d2d] focus:border-[#2d2d2d] transition-all appearance-none"
                         >
                           <option value="Portrait">Portrait</option>
                           <option value="Wedding">Wedding</option>
@@ -322,12 +322,12 @@ export function Booking() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Package</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Package</label>
                         <select
                           name="packageId"
                           value={formData.packageId}
                           onChange={handleChange}
-                          className="w-full bg-white border border-zinc-200 px-4 py-3 text-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-800 focus:border-slate-800 transition-all appearance-none"
+                          className="w-full bg-white border border-zinc-200 px-4 py-3 text-[#2d2d2d] focus:outline-none focus:ring-1 focus:ring-[#2d2d2d] focus:border-[#2d2d2d] transition-all appearance-none"
                         >
                           <option value="">Select Package</option>
                           <option value="essential-story">Essential Story</option>
@@ -338,13 +338,13 @@ export function Booking() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Additional Notes</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Additional Notes</label>
                       <textarea
                         name="notes"
                         rows={3}
                         value={formData.notes}
                         onChange={handleChange}
-                        className="w-full bg-white border border-zinc-200 px-4 py-3 text-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-800 focus:border-slate-800 transition-all resize-none"
+                        className="w-full bg-white border border-zinc-200 px-4 py-3 text-[#2d2d2d] focus:outline-none focus:ring-1 focus:ring-[#2d2d2d] focus:border-[#2d2d2d] transition-all resize-none"
                       ></textarea>
                     </div>
                   </div>
@@ -373,7 +373,7 @@ export function Booking() {
                     disabled={!selectedDate || !selectedTime}
                     onMouseEnter={(!selectedDate || !selectedTime) ? undefined : setHovering}
                     onMouseLeave={setDefault}
-                    className="w-full py-4 bg-slate-800 text-white font-bold tracking-widest uppercase text-sm hover:bg-slate-900 transition-all disabled:opacity-50 disabled:bg-slate-400 mt-8"
+                    className="w-full py-4 bg-[#2d2d2d] text-white font-bold tracking-widest uppercase text-sm hover:bg-[#1e1e1e] transition-all disabled:opacity-50 disabled:bg-zinc-400 mt-8"
                   >
                     Confirm Booking
                   </button>

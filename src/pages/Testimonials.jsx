@@ -36,10 +36,10 @@ export function Testimonials() {
   }, []);
 
   return (
-    <section id="testimonials" className="py-24 bg-slate-900 overflow-hidden relative">
+    <section id="testimonials" className="py-24 bg-[#1e1e1e] overflow-hidden relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
-        <Quote className="w-16 h-16 text-slate-800 mx-auto mb-8" />
+        <Quote className="w-16 h-16 text-[#383838] mx-auto mb-8" />
         
         <div className="relative h-[250px] sm:h-[200px]">
           <AnimatePresence mode="wait">
@@ -56,7 +56,7 @@ export function Testimonials() {
               </p>
               <div>
                 <h4 className="text-sm font-bold tracking-widest uppercase text-slate-200">{testimonials[current].name}</h4>
-                <p className="text-sm text-slate-500 mt-1">{testimonials[current].role}</p>
+                <p className="text-sm text-[#707070] mt-1">{testimonials[current].role}</p>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -71,7 +71,7 @@ export function Testimonials() {
               onMouseEnter={setHovering}
               onMouseLeave={setDefault}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                idx === current ? 'w-8 bg-white' : 'bg-slate-700 hover:bg-slate-500'
+                idx === current ? 'w-8 bg-white' : 'bg-[#383838] hover:bg-[#555555]'
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />

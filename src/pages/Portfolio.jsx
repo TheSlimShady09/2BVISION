@@ -50,7 +50,7 @@ export function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="min-h-screen bg-white flex flex-col py-24 relative overflow-hidden selection:bg-slate-900 selection:text-white">
+    <section id="portfolio" className="min-h-screen bg-white flex flex-col py-24 relative overflow-hidden selection:bg-[#1e1e1e] selection:text-white">
       
       {/* Header & Tabs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 text-center mb-16">
@@ -58,7 +58,7 @@ export function Portfolio() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-6xl font-extrabold uppercase tracking-widest text-slate-900 mb-8"
+          className="text-4xl md:text-6xl font-extrabold uppercase tracking-widest text-[#2d2d2d] mb-8"
         >
           Portfolio
         </motion.h2>
@@ -76,8 +76,8 @@ export function Portfolio() {
               onClick={() => setFilter(tab)}
               className={`px-6 py-2 rounded-full text-sm font-semibold tracking-wider uppercase transition-all duration-300 ${
                 filter === tab 
-                  ? 'bg-slate-900 text-white shadow-xl scale-105' 
-                  : 'bg-zinc-100 text-slate-500 hover:bg-zinc-200 hover:text-slate-900'
+                  ? 'bg-[#1e1e1e] text-white shadow-xl scale-105' 
+                  : 'bg-zinc-100 text-[#707070] hover:bg-zinc-200 hover:text-[#2d2d2d]'
               }`}
             >
               {tab}
@@ -91,7 +91,7 @@ export function Portfolio() {
         
         {isLoading ? (
           <div className="flex items-center justify-center h-64 w-full">
-            <Loader2 className="w-12 h-12 text-slate-300 animate-spin" />
+            <Loader2 className="w-12 h-12 text-[#c8c8c8] animate-spin" />
           </div>
         ) : filteredItems.length === 0 ? (
           <div className="text-center py-20">

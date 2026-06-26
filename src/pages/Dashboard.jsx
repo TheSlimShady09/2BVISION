@@ -46,13 +46,13 @@ export function Dashboard() {
               <User className="w-8 h-8 text-slate-400" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-slate-900 mb-1">Welcome back, {user?.full_name || user?.name || 'Client'}</h1>
-              <p className="text-slate-500">{user?.email}</p>
+              <h1 className="text-3xl font-bold text-[#2d2d2d] mb-1">Welcome back, {user?.full_name || user?.name || 'Client'}</h1>
+              <p className="text-[#707070]">{user?.email}</p>
             </div>
           </div>
           <button 
             onClick={logout}
-            className="flex items-center gap-2 px-6 py-3 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors uppercase tracking-widest text-xs font-bold"
+            className="flex items-center gap-2 px-6 py-3 border border-zinc-200 text-[#555555] hover:text-[#2d2d2d] hover:bg-zinc-50 transition-colors uppercase tracking-widest text-xs font-bold"
           >
             <LogOut className="w-4 h-4" />
             Sign Out
@@ -61,7 +61,7 @@ export function Dashboard() {
 
         {isLoading ? (
           <div className="flex justify-center py-24 bg-white border border-zinc-200">
-            <Loader2 className="w-10 h-10 animate-spin text-slate-300" />
+            <Loader2 className="w-10 h-10 animate-spin text-[#c8c8c8]" />
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -70,7 +70,7 @@ export function Dashboard() {
             <div className="lg:col-span-2 space-y-8">
               <div className="bg-white p-8 border border-zinc-200 shadow-sm">
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
+                  <h2 className="text-2xl font-bold text-[#2d2d2d] flex items-center gap-3">
                     <Calendar className="w-6 h-6 text-slate-400" />
                     Your Sessions
                   </h2>
@@ -78,10 +78,10 @@ export function Dashboard() {
                 
                 {bookings.length === 0 ? (
                   <div className="text-center py-16 bg-zinc-50 border border-zinc-200 border-dashed">
-                    <p className="text-slate-500 mb-6 font-light">You have no active bookings.</p>
+                    <p className="text-[#707070] mb-6 font-light">You have no active bookings.</p>
                     <button 
                       onClick={() => navigate('/#booking')}
-                      className="inline-block px-8 py-4 bg-slate-800 text-white font-bold tracking-widest uppercase text-xs hover:bg-slate-900 transition-colors"
+                      className="inline-block px-8 py-4 bg-[#2d2d2d] text-white font-bold tracking-widest uppercase text-xs hover:bg-[#1e1e1e] transition-colors"
                     >
                       Book a Session
                     </button>
@@ -97,7 +97,7 @@ export function Dashboard() {
                       >
                         <div>
                           <div className="flex items-center gap-3 mb-3">
-                            <span className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-bold uppercase tracking-wider">
+                            <span className="px-3 py-1 bg-zinc-100 text-[#444444] text-xs font-bold uppercase tracking-wider">
                               {booking.package_id || 'Custom Package'}
                             </span>
                             <span className={`px-3 py-1 text-xs font-bold uppercase tracking-wider ${
@@ -108,10 +108,10 @@ export function Dashboard() {
                               {booking.status || 'Pending'}
                             </span>
                           </div>
-                          <h3 className="text-xl font-bold text-slate-900 mb-2">
+                          <h3 className="text-xl font-bold text-[#2d2d2d] mb-2">
                             {booking.event_type || 'Photography Session'}
                           </h3>
-                          <div className="flex items-center gap-6 text-sm text-slate-500 font-light">
+                          <div className="flex items-center gap-6 text-sm text-[#707070] font-light">
                             <span className="flex items-center gap-2">
                               <Calendar className="w-4 h-4" />
                               {booking.booking_date ? new Date(booking.booking_date).toLocaleDateString() : '—'}
@@ -125,7 +125,7 @@ export function Dashboard() {
                         
                         <div className="flex flex-col items-end w-full md:w-auto mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 border-zinc-200">
                           <button 
-                            className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors border-b border-transparent hover:border-slate-900 pb-1"
+                            className="text-xs font-bold uppercase tracking-widest text-[#707070] hover:text-[#2d2d2d] transition-colors border-b border-transparent hover:border-[#1e1e1e] pb-1"
                           >
                             View Details
                           </button>
@@ -141,7 +141,7 @@ export function Dashboard() {
             <div className="space-y-8">
               {deliverables.length > 0 && (
                 <div className="bg-white p-8 border border-zinc-200 shadow-sm">
-                  <h3 className="text-sm font-bold text-slate-900 mb-6 uppercase tracking-widest flex items-center gap-2">
+                  <h3 className="text-sm font-bold text-[#2d2d2d] mb-6 uppercase tracking-widest flex items-center gap-2">
                     <Download className="w-4 h-4" /> Your Media
                   </h3>
                   <div className="space-y-4">
@@ -151,14 +151,14 @@ export function Dashboard() {
                         href={del.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="block p-4 border border-zinc-200 hover:border-slate-800 transition-all group"
+                        className="block p-4 border border-zinc-200 hover:border-[#2d2d2d] transition-all group"
                       >
                         <div className="flex justify-between items-center">
                           <div>
-                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">{del.type}</span>
-                            <span className="text-sm font-medium text-slate-900">{del.bookings?.event_type || 'Session Files'}</span>
+                            <span className="text-[10px] font-bold text-[#707070] uppercase tracking-widest block mb-1">{del.type}</span>
+                            <span className="text-sm font-medium text-[#2d2d2d]">{del.bookings?.event_type || 'Session Files'}</span>
                           </div>
-                          <Download className="w-4 h-4 text-slate-400 group-hover:text-slate-900 transition-colors" />
+                          <Download className="w-4 h-4 text-slate-400 group-hover:text-[#2d2d2d] transition-colors" />
                         </div>
                       </a>
                     ))}
@@ -171,13 +171,13 @@ export function Dashboard() {
                 <div className="space-y-3">
                   <button 
                     onClick={() => navigate('/#pricing')}
-                    className="flex items-center gap-3 w-full p-4 bg-zinc-50 border border-zinc-200 hover:border-slate-300 transition-colors text-slate-600 hover:text-slate-900 group"
+                    className="flex items-center gap-3 w-full p-4 bg-zinc-50 border border-zinc-200 hover:border-slate-300 transition-colors text-[#555555] hover:text-[#2d2d2d] group"
                   >
                     <CreditCard className="w-5 h-5 group-hover:scale-110 transition-transform" />
                     <span className="font-medium text-sm">View Pricing</span>
                   </button>
                   <button 
-                    className="flex items-center gap-3 w-full p-4 bg-zinc-50 border border-zinc-200 hover:border-slate-300 transition-colors text-slate-600 hover:text-slate-900 group"
+                    className="flex items-center gap-3 w-full p-4 bg-zinc-50 border border-zinc-200 hover:border-slate-300 transition-colors text-[#555555] hover:text-[#2d2d2d] group"
                   >
                     <Settings className="w-5 h-5 group-hover:scale-110 transition-transform" />
                     <span className="font-medium text-sm">Account Settings</span>
@@ -185,15 +185,15 @@ export function Dashboard() {
                 </div>
               </div>
               
-              <div className="bg-slate-800 p-8 text-white shadow-xl relative overflow-hidden">
+              <div className="bg-[#1e1e1e] p-8 text-white shadow-xl relative overflow-hidden border border-[#444444]">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full -z-10"></div>
                 <h3 className="text-lg font-bold mb-3">Need Help?</h3>
-                <p className="text-slate-300 text-sm mb-8 font-light leading-relaxed">
+                <p className="text-[#a0a0a0] text-sm mb-8 font-light leading-relaxed">
                   Contact your dedicated producer for questions about your upcoming sessions.
                 </p>
                 <a 
                   href="mailto:hello@2bvision.com" 
-                  className="inline-block px-6 py-3 bg-white text-slate-900 text-xs font-bold tracking-widest uppercase hover:bg-slate-200 transition-colors"
+                  className="inline-block px-6 py-3 bg-white text-[#2d2d2d] text-xs font-bold tracking-widest uppercase hover:bg-[#e8e8e8] transition-colors"
                 >
                   Contact Support
                 </a>

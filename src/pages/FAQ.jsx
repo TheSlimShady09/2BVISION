@@ -34,8 +34,8 @@ export function FAQ() {
     <section id="faq" className="py-24 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-widest text-slate-900 mb-4">FAQ</h2>
-          <p className="text-slate-500">Common questions about our process.</p>
+          <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-widest text-[#2d2d2d] mb-4">FAQ</h2>
+          <p className="text-[#707070]">Common questions about our process.</p>
         </div>
 
         <div className="space-y-4">
@@ -50,11 +50,11 @@ export function FAQ() {
                 onMouseEnter={setHovering}
                 onMouseLeave={setDefault}
               >
-                <span className="text-lg font-medium text-slate-800">{faq.question}</span>
+                <span className="text-lg font-medium text-[#383838]">{faq.question}</span>
                 {openIndex === index ? (
                   <Minus className="w-5 h-5 text-slate-400 shrink-0" />
                 ) : (
-                  <Plus className="w-5 h-5 text-slate-800 shrink-0" />
+                  <Plus className="w-5 h-5 text-[#383838] shrink-0" />
                 )}
               </button>
               
@@ -67,7 +67,7 @@ export function FAQ() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <p className="pb-6 text-slate-600 leading-relaxed font-light">
+                    <p className="pb-6 text-[#555555] leading-relaxed font-light">
                       {faq.answer}
                     </p>
                   </motion.div>

@@ -45,7 +45,7 @@ export function Hero() {
               onClick={scrollToBooking}
               onMouseEnter={setHovering}
               onMouseLeave={setDefault}
-              className="group relative px-8 py-4 bg-slate-800 text-white font-bold text-lg rounded-none hover:bg-slate-900 transition-colors flex items-center gap-3 overflow-hidden shadow-2xl shadow-black/50"
+              className="group relative px-8 py-4 bg-[#2d2d2d] text-white font-bold text-lg rounded-none hover:bg-[#1e1e1e] transition-colors flex items-center gap-3 overflow-hidden shadow-2xl shadow-black/50"
             >
               <span className="relative z-10 tracking-widest uppercase text-sm">Book a Session</span>
               <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
