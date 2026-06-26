@@ -1,7 +1,7 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { BookingProvider } from './context/BookingContext';
 import { CursorProvider } from './context/CursorContext';
 
@@ -20,11 +20,12 @@ import { Pricing } from './pages/Pricing';
 import { Booking } from './pages/Booking';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { DashboardSection } from './components/DashboardSection';
+import { ProjectDetail } from './pages/ProjectDetail';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (pathname === '/dashboard') {
       window.scrollTo(0, 0);
     }
@@ -48,27 +49,49 @@ function MainPage() {
   );
 }
 
+// ── Public Layout (Navbar + Footer) ──────────────────────────────────────────
+function PublicLayout() {
+  const { user } = useAuth();
+
+  // Redirect admin to the Admin Panel if they are anywhere on the public layout
+  if (user && user.role === 'admin') {
+    return <Navigate to="/admin" replace />;
+  }
+
+  return (
+    <CursorProvider>
+      <ScrollToTop />
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/dashboard" element={<DashboardSection />} />
+            <Route path="/client-portal" element={<DashboardSection />} />
+            <Route path="/project/:id" element={<ProjectDetail />} />
+          </Routes>
+        </main>
+        <Footer />
+        <FloatingWhatsApp />
+      </div>
+    </CursorProvider>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <BookingProvider>
-          <CursorProvider>
-            <ScrollToTop />
-            <Toaster position="bottom-center" toastOptions={{ className: 'rounded-none border border-slate-200 text-sm tracking-wider font-medium' }} />
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-grow">
-                <Routes>
-                  <Route path="/" element={<MainPage />} />
-                  <Route path="/dashboard" element={<DashboardSection />} />
-                  <Route path="/admin" element={<AdminDashboard />} />
-                </Routes>
-              </main>
-              <Footer />
-              <FloatingWhatsApp />
-            </div>
-          </CursorProvider>
+          <Toaster position="bottom-center" toastOptions={{ className: 'rounded-none border border-slate-200 text-sm tracking-wider font-medium' }} />
+          <Routes>
+            {/* Admin — completely isolated, no Navbar/Footer/Cursor */}
+            <Route path="/admin" element={<AdminDashboard />} />
+
+            {/* Everything else — wrapped in public layout */}
+            <Route path="/*" element={<PublicLayout />} />
+          </Routes>
         </BookingProvider>
       </AuthProvider>
     </BrowserRouter>

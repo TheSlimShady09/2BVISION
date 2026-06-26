@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const CursorContext = createContext();
 
@@ -18,6 +18,16 @@ export function CursorProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useCursor() {
-  return useContext(CursorContext);
+  const context = useContext(CursorContext);
+  if (!context) {
+    return {
+      cursorVariant: 'default',
+      setHovering: () => {},
+      setDefault: () => {},
+      setLightbox: () => {},
+    };
+  }
+  return context;
 }

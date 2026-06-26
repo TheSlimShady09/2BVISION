@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
 
 const BookingContext = createContext();
@@ -12,6 +12,7 @@ export function BookingProvider({ children }) {
     if (user) {
       const storedBookings = localStorage.getItem(`2bvision_bookings_${user.id}`);
       if (storedBookings) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setBookings(JSON.parse(storedBookings));
       } else {
         setBookings([]);
@@ -50,6 +51,7 @@ export function BookingProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useBooking() {
   const context = useContext(BookingContext);
   if (context === undefined) {

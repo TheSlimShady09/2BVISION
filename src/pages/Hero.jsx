@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useCursor } from '../context/CursorContext';
@@ -16,16 +16,14 @@ export function Hero() {
     <section id="home" className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        <video 
-          autoPlay 
-          loop 
-          muted 
+        <video
+          autoPlay
+          loop
+          muted
           playsInline
-          className="w-full h-full object-cover object-center filter grayscale-[30%]"
+          className="w-full h-full object-cover object-center"
         >
-          {/* Placeholder luxury cinematic video */}
-          <source src="https://player.vimeo.com/external/498305081.hd.mp4?s=d0ea4d0269fec9dc6de7cf90cb9d755498897a47&profile_id=175" type="video/mp4" />
-          Your browser does not support the video tag.
+          <source src="/2B Intro.mp4" type="video/mp4" />
         </video>
         {/* Subtle overlay to ensure text readability */}
         <div className="absolute inset-0 bg-black/40 mix-blend-multiply"></div>

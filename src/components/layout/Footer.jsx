@@ -1,6 +1,7 @@
-import React from 'react';
+
 import { Camera, MessageCircle, Phone, Mail, Image as ImageIcon } from 'lucide-react';
 import { useCursor } from '../../context/CursorContext';
+import { Link } from 'react-router-dom';
 
 export function Footer() {
   const { setHovering, setDefault } = useCursor();
@@ -10,15 +11,15 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="col-span-1 md:col-span-2">
-            <a 
-              href="#home" 
+            <Link 
+              to="/#home" 
               className="flex items-center gap-2 mb-4 w-fit"
               onMouseEnter={setHovering}
               onMouseLeave={setDefault}
             >
               <Camera className="w-6 h-6 text-white" />
               <span className="font-bold text-lg tracking-widest text-white uppercase">2B Vision</span>
-            </a>
+            </Link>
             <p className="text-slate-300 text-sm leading-relaxed max-w-sm">
               Capturing moments with cinematic precision. Premium photography and videography for weddings, commercial projects, and high-end portraits.
             </p>

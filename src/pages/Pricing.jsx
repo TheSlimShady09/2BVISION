@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { motion } from 'framer-motion';
 import { Check, Camera, Video, Star } from 'lucide-react';
 import { useBooking } from '../context/BookingContext';

@@ -1,37 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, CreditCard, LogOut, Settings, User, Download, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { useNavigate } from 'react-router-dom';
 
 export function Dashboard() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
   const [deliverables, setDeliverables] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const fetchDashboardData = async () => {
+      setIsLoading(true);
+      try {
+        const [bookingsRes, deliverablesRes] = await Promise.all([
+          supabase.from('bookings').select('*').eq('user_id', user.id).order('created_at', { ascending: false }),
+          supabase.from('client_deliverables').select('*, bookings(event_type)').eq('user_id', user.id).order('created_at', { ascending: false })
+        ]);
+
+        setBookings(bookingsRes.data || []);
+        setDeliverables(deliverablesRes.data || []);
+      } catch (error) {
+        console.error('Error fetching dashboard data', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     if (user?.id) {
       fetchDashboardData();
     }
   }, [user]);
-
-  const fetchDashboardData = async () => {
-    setIsLoading(true);
-    try {
-      const [bookingsRes, deliverablesRes] = await Promise.all([
-        supabase.from('bookings').select('*').eq('user_id', user.id).order('created_at', { ascending: false }),
-        supabase.from('client_deliverables').select('*, bookings(event_type)').eq('user_id', user.id).order('created_at', { ascending: false })
-      ]);
-
-      setBookings(bookingsRes.data || []);
-      setDeliverables(deliverablesRes.data || []);
-    } catch (error) {
-      console.error('Error fetching dashboard data', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className="w-full px-4 sm:px-6 lg:px-8">
@@ -77,12 +79,12 @@ export function Dashboard() {
                 {bookings.length === 0 ? (
                   <div className="text-center py-16 bg-zinc-50 border border-zinc-200 border-dashed">
                     <p className="text-slate-500 mb-6 font-light">You have no active bookings.</p>
-                    <a 
-                      href="/#booking" 
+                    <button 
+                      onClick={() => navigate('/#booking')}
                       className="inline-block px-8 py-4 bg-slate-800 text-white font-bold tracking-widest uppercase text-xs hover:bg-slate-900 transition-colors"
                     >
                       Book a Session
-                    </a>
+                    </button>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -112,7 +114,7 @@ export function Dashboard() {
                           <div className="flex items-center gap-6 text-sm text-slate-500 font-light">
                             <span className="flex items-center gap-2">
                               <Calendar className="w-4 h-4" />
-                              {new Date(booking.date).toLocaleDateString()}
+                              {booking.booking_date ? new Date(booking.booking_date).toLocaleDateString() : '—'}
                             </span>
                             <span className="flex items-center gap-2">
                               <Clock className="w-4 h-4" />
@@ -167,13 +169,13 @@ export function Dashboard() {
               <div className="bg-white p-8 border border-zinc-200 shadow-sm">
                 <h3 className="text-sm font-bold text-slate-400 mb-6 uppercase tracking-widest">Quick Actions</h3>
                 <div className="space-y-3">
-                  <a 
-                    href="/#pricing" 
+                  <button 
+                    onClick={() => navigate('/#pricing')}
                     className="flex items-center gap-3 w-full p-4 bg-zinc-50 border border-zinc-200 hover:border-slate-300 transition-colors text-slate-600 hover:text-slate-900 group"
                   >
                     <CreditCard className="w-5 h-5 group-hover:scale-110 transition-transform" />
                     <span className="font-medium text-sm">View Pricing</span>
-                  </a>
+                  </button>
                   <button 
                     className="flex items-center gap-3 w-full p-4 bg-zinc-50 border border-zinc-200 hover:border-slate-300 transition-colors text-slate-600 hover:text-slate-900 group"
                   >

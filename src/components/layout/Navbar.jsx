@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Camera, Menu, X, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../lib/utils';
@@ -17,6 +17,7 @@ const navLinks = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [scrolled, setScrolled] = useState(false);
   const { user } = useAuth();
   const { setHovering, setDefault } = useCursor();
   
@@ -25,6 +26,7 @@ export function Navbar() {
 
   useEffect(() => {
     if (location.pathname === '/dashboard') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setActiveSection('dashboard');
       return;
     }
@@ -42,10 +44,16 @@ export function Navbar() {
           }
         }
       }
-      if (current) {
-        setActiveSection(current);
-      }
-    };
+        if (current) {
+          setActiveSection(current);
+        }
+
+        if (window.scrollY > 50) {
+          setScrolled(true);
+        } else {
+          setScrolled(false);
+        }
+      };
 
     window.addEventListener('scroll', handleScroll);
     handleScroll();
@@ -84,8 +92,16 @@ export function Navbar() {
     }
   };
 
+  const isHome = location.pathname === '/';
+  const isTransparent = isHome && !scrolled && !isOpen;
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-zinc-200 transition-all duration-300">
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+      isTransparent 
+        ? "bg-transparent border-transparent py-2" 
+        : "bg-white/90 backdrop-blur-xl border-b border-zinc-200 py-0"
+    )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0">
@@ -96,8 +112,8 @@ export function Navbar() {
               onMouseEnter={setHovering}
               onMouseLeave={setDefault}
             >
-              <Camera className="w-8 h-8 text-slate-800 transition-transform group-hover:scale-110 duration-300" />
-              <span className="font-bold text-xl tracking-widest text-slate-800 uppercase">2B Vision</span>
+              <Camera className={cn("w-8 h-8 transition-all group-hover:scale-110 duration-300", isTransparent ? "text-white" : "text-slate-800")} />
+              <span className={cn("font-bold text-xl tracking-widest uppercase transition-colors", isTransparent ? "text-white" : "text-slate-800")}>2B Vision</span>
             </a>
           </div>
           <div className="hidden md:block">
@@ -110,15 +126,17 @@ export function Navbar() {
                   onMouseEnter={setHovering}
                   onMouseLeave={setDefault}
                   className={cn(
-                    "text-sm font-medium tracking-wide transition-colors hover:text-slate-900 relative",
-                    activeSection === link.path ? "text-slate-900" : "text-slate-500"
+                    "text-sm font-medium tracking-wide transition-colors relative",
+                    isTransparent
+                      ? (activeSection === link.path ? "text-white" : "text-white/70 hover:text-white")
+                      : (activeSection === link.path ? "text-slate-900" : "text-slate-500 hover:text-slate-900")
                   )}
                 >
                   {link.name}
                   {activeSection === link.path && (
                     <motion.div
                       layoutId="underline"
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-slate-800"
+                      className={cn("absolute -bottom-1 left-0 right-0 h-0.5", isTransparent ? "bg-white" : "bg-slate-800")}
                     />
                   )}
                 </a>
@@ -130,9 +148,9 @@ export function Navbar() {
                 onMouseLeave={setDefault}
                 className={cn(
                   "flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-colors",
-                  activeSection === 'dashboard'
-                    ? "bg-slate-800 text-white"
-                    : "bg-slate-700 text-white hover:bg-slate-800"
+                  isTransparent
+                    ? "bg-white/20 text-white hover:bg-white/30 backdrop-blur-md"
+                    : (activeSection === 'dashboard' ? "bg-slate-800 text-white" : "bg-slate-700 text-white hover:bg-slate-800")
                 )}
               >
                 {user ? (
@@ -149,7 +167,9 @@ export function Navbar() {
           <div className="-mr-2 flex md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-100 focus:outline-none"
+              className={cn("inline-flex items-center justify-center p-2 rounded-md focus:outline-none transition-colors", 
+                isTransparent ? "text-white hover:bg-white/10" : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"
+              )}
             >
               <span className="sr-only">Open main menu</span>
               {isOpen ? (

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCursor } from '../../context/CursorContext';
