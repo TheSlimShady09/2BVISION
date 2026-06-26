@@ -72,6 +72,9 @@ export function AuthProvider({ children }) {
         // SIGNED_IN = user just logged in
         if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN') {
           await resolveUser(currentSession.user);
+        } else {
+          // For TOKEN_REFRESHED or other events — don't re-resolve
+          setIsLoading(false);
         }
       });
 
