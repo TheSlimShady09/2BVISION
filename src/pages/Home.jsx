@@ -162,7 +162,7 @@ export function Home() {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               <div className="text-5xl md:text-6xl font-extrabold text-white mb-2 tracking-tighter">
-                <Counter end={20} suffix="M+" />
+                <Counter end={200} suffix="K+" />
               </div>
               <div className="text-zinc-500 text-sm font-bold uppercase tracking-wider">Total Video Views</div>
             </motion.div>

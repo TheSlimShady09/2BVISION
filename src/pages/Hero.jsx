@@ -23,7 +23,7 @@ export function Hero() {
           playsInline
           className="w-full h-full object-cover object-center"
         >
-          <source src="/2B Intro.mp4" type="video/mp4" />
+          <source src="/Studio Video.mp4" type="video/mp4" />
         </video>
         {/* Subtle overlay to ensure text readability */}
         <div className="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
@@ -36,7 +36,22 @@ export function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 uppercase leading-tight drop-shadow-lg">
-            Where your vision becomes <br />
+            Where your{" "}
+            <span
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontStyle: "italic",
+                fontWeight: 700,
+                color: "#ffffff",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+                fontSize: "1.15em",
+                display: "inline-block",
+              }}
+            >
+              Vision
+            </span>{" "}
+            becomes <br />
             <span className="italic font-serif font-light text-zinc-200">timeless art.</span>
           </h1>
           <div className="flex justify-center items-center mt-12">

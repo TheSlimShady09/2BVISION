@@ -120,9 +120,8 @@ export function Navbar() {
                   isTransparent ? "brightness-0 invert" : "brightness-0"
                 )}
               />
-              <span className={cn("font-bold text-xl tracking-widest uppercase transition-colors", isTransparent ? "text-white" : "text-[#383838]")}>
-                2B Vision
-              </span>
+
+
             </a>
           </div>
           <div className="hidden md:block">

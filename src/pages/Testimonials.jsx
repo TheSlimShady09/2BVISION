@@ -6,23 +6,24 @@ import { useCursor } from '../context/CursorContext';
 const testimonials = [
   {
     id: 1,
-    name: "Elena & Marcus",
-    role: "Wedding Clients",
-    text: "2B Vision didn't just capture our wedding; they captured the very essence of our love story. The cinematic quality of their work is unparalleled. We were left speechless."
+    name: "Arta & Besnik",
+    role: "Klientë Dasme",
+    text: "2B Vision nuk na filmoi vetëm dasmën; ata kapën thelbin e historisë sonë të dashurisë. Cilësia kinematografike e punës së tyre është e papërsëritshme. U mbetëm pa fjalë."
   },
   {
     id: 2,
-    name: "Sarah Jenkins",
-    role: "Creative Director",
-    text: "Working with them for our commercial campaign was a revelation. They bring a level of sophistication and minimalist elegance that completely elevated our brand."
+    name: "Mirela",
+    role: "Drejtoreshë Krijuese",
+    text: "Bashkëpunimi me ta për fushatën tonë komerciale ishte një zbulim. Sjellin një nivel sofistikimi dhe elegance minimaliste që ngriti plotësisht markën tonë."
   },
   {
     id: 3,
-    name: "David Chen",
-    role: "Portrait Session",
-    text: "I've never felt so comfortable in front of a camera. The team's direction is subtle, professional, and results in portraits that look like they belong in a high-end magazine."
+    name: "Erion",
+    role: "Seancë Portretesh",
+    text: "Nuk jam ndjerë kurrë kaq rehat para kamerës. Drejtimi i ekipit është i butë, profesional, dhe rezulton në portrete që duken sikur i takojnë një reviste luksoze."
   }
 ];
+
 
 export function Testimonials() {
   const [current, setCurrent] = useState(0);
