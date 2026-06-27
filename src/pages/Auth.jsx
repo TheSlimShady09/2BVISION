@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import { Camera, Mail, Lock, User, Loader2 } from 'lucide-react';
+import { Mail, Lock, User, Loader2 } from 'lucide-react';
 import { useCursor } from '../context/CursorContext';
 import ReCAPTCHA from 'react-google-recaptcha';
 import toast from 'react-hot-toast';
@@ -33,7 +33,7 @@ export function Auth({ isAdmin = false }) {
     const hash = window.location.hash;
     if (hash && hash.includes('error=')) {
       const params = new URLSearchParams(hash.substring(1));
-      const errorDesc = params.get('error_description') || 'Gabim gjatë logimit me Google.';
+      const errorDesc = params.get('error_description') || 'Error during Google sign-in.';
       toast.error(errorDesc.replace(/\+/g, ' '));
       // Clean up only the error hash
       window.history.replaceState(null, '', window.location.pathname + window.location.search);
@@ -46,7 +46,7 @@ export function Auth({ isAdmin = false }) {
     setError('');
 
     if (!captchaToken) {
-      toast.error('Të lutem konfirmo që nuk je robot (CAPTCHA).');
+      toast.error('Please confirm you are not a robot (CAPTCHA).');
       return;
     }
 
@@ -65,7 +65,7 @@ export function Auth({ isAdmin = false }) {
         }
       }
     } catch {
-      setError('Ndodhi një gabim i papritur. Provo sërish.');
+      setError('An unexpected error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -99,14 +99,14 @@ export function Auth({ isAdmin = false }) {
 
           {/* Header */}
           <div className="text-center mb-8">
-            <Camera className="mx-auto h-10 w-10 text-[#1C1C1C] mb-4" />
+            <img src="/logo.png" alt="2B Vision" className="mx-auto h-14 w-auto mb-4 invert" />
             <h2 className="text-2xl font-serif text-[#1C1C1C] uppercase tracking-widest">
-              {mode === 'login' ? (isAdmin ? 'Admin Portal' : 'Client Portal') : 'Krijo Llogari'}
+              {mode === 'login' ? (isAdmin ? 'Admin Portal' : 'Client Portal') : 'Create Account'}
             </h2>
             <p className="mt-2 text-sm text-[#1C1C1C]/70 font-light">
               {mode === 'login' 
-                ? (isAdmin ? 'Hyr për të menaxhuar studion.' : 'Hyr për të parë galeritë dhe rezervimet.') 
-                : 'Regjistrohu për të menaxhuar seancat.'}
+                ? (isAdmin ? 'Sign in to manage the studio.' : 'Sign in to view your galleries and bookings.')
+                : 'Create an account to manage your sessions.'}
             </p>
           </div>
 
@@ -125,7 +125,7 @@ export function Auth({ isAdmin = false }) {
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
                 <path d="M1 1h22v22H1z" fill="none" />
               </svg>
-              {mode === 'login' ? 'Vazhdo me Google' : 'Regjistrohu me Google'}
+              {mode === 'login' ? 'Continue with Google' : 'Sign up with Google'}
             </button>
           </div>
 
@@ -135,7 +135,7 @@ export function Auth({ isAdmin = false }) {
               <div className="w-full border-t border-[#E5DCC5]" />
             </div>
             <div className="relative flex justify-center">
-              <span className="bg-[#FAF9F6] px-4 text-xs font-bold uppercase tracking-widest text-[#1C1C1C]/50">Ose me Email</span>
+              <span className="bg-[#FAF9F6] px-4 text-xs font-bold uppercase tracking-widest text-[#1C1C1C]/50">Or with Email</span>
             </div>
           </div>
 
@@ -155,7 +155,7 @@ export function Auth({ isAdmin = false }) {
                   </div>
                   <input
                     id="name" name="name" type="text" required
-                    placeholder="Emri i plotë"
+                    placeholder="Full Name"
                     className="block w-full pl-10 pr-3 py-3 border border-[#E5DCC5] bg-transparent text-[#1C1C1C] placeholder-[#1C1C1C]/40 focus:outline-none focus:ring-1 focus:ring-[#D4AF37] focus:border-[#D4AF37] sm:text-sm transition-all"
                     value={formData.name}
                     onChange={handleChange}
@@ -169,7 +169,7 @@ export function Auth({ isAdmin = false }) {
                 </div>
                 <input
                   id="email" name="email" type="email" autoComplete="email" required
-                  placeholder="Adresa e emailit"
+                  placeholder="Email Address"
                   className="block w-full pl-10 pr-3 py-3 border border-[#E5DCC5] bg-transparent text-[#1C1C1C] placeholder-[#1C1C1C]/40 focus:outline-none focus:ring-1 focus:ring-[#D4AF37] focus:border-[#D4AF37] sm:text-sm transition-all"
                   value={formData.email}
                   onChange={handleChange}
@@ -182,7 +182,7 @@ export function Auth({ isAdmin = false }) {
                 </div>
                 <input
                   id="password" name="password" type="password" required
-                  placeholder="Fjalëkalimi"
+                  placeholder="Password"
                   className="block w-full pl-10 pr-3 py-3 border border-[#E5DCC5] bg-transparent text-[#1C1C1C] placeholder-[#1C1C1C]/40 focus:outline-none focus:ring-1 focus:ring-[#D4AF37] focus:border-[#D4AF37] sm:text-sm transition-all"
                   value={formData.password}
                   onChange={handleChange}
@@ -201,9 +201,9 @@ export function Auth({ isAdmin = false }) {
               {isLoading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : mode === 'login' ? (
-                'Vazhdo'
+                'Continue'
               ) : (
-                'Regjistrohu'
+                'Sign Up'
               )}
             </button>
 
@@ -231,8 +231,8 @@ export function Auth({ isAdmin = false }) {
                   className="text-sm font-medium text-[#707070] hover:text-[#2d2d2d] transition-colors"
                 >
                   {mode === 'login'
-                    ? "Nuk ke llogari? Regjistrohu"
-                    : "Ke llogari? Hyr"}
+                    ? "Don't have an account? Sign Up"
+                    : "Already have an account? Sign In"}
                 </button>
               </div>
             )}

@@ -31,12 +31,12 @@ export function Story() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="relative aspect-[4/5] lg:aspect-square bg-white border border-zinc-200 p-4 shadow-xl"
+            className="flex items-center justify-center"
           >
-            <img 
-              src="https://images.unsplash.com/photo-1554046920-90dcac824bd1?q=80&w=1000&auto=format&fit=crop" 
-              alt="2B Vision Team" 
-              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+            <img
+              src="/logo.png"
+              alt="2B Vision"
+              className="w-full max-w-sm object-contain invert"
             />
           </motion.div>
         </div>

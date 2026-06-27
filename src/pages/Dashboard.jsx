@@ -33,7 +33,7 @@ export function Dashboard() {
     if (user?.id) {
       fetchDashboardData();
     }
-  }, [user]);
+  }, [user?.id]);
 
   return (
     <div className="w-full px-4 sm:px-6 lg:px-8">

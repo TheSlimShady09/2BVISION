@@ -78,7 +78,7 @@ export function AdminPanel() {
       if (error) throw error;
       setPortfolioItems(data || []);
     } catch {
-      toast.error('Gabim gjatë ngarkimit të portofolit');
+      toast.error('Error loading portfolio');
     } finally {
       setPortfolioLoading(false);
     }
@@ -89,23 +89,23 @@ export function AdminPanel() {
     try {
       const { error } = await supabase.from('portfolio').insert([portfolioForm]);
       if (error) throw error;
-      toast.success('Projekti u shtua me sukses!');
+      toast.success('Project added successfully!');
       setPortfolioForm({ title: '', type: 'Photography', url: '', category: '' });
       fetchPortfolioItems();
     } catch {
-      toast.error('Dështoi shtimi i projektit');
+      toast.error('Failed to add project');
     }
   };
 
   const handlePortfolioDelete = async (id) => {
-    if (!window.confirm('Jeni i sigurt që dëshironi ta fshini këtë projekt?')) return;
+    if (!window.confirm('Are you sure you want to delete this project?')) return;
     try {
       const { error } = await supabase.from('portfolio').delete().eq('id', id);
       if (error) throw error;
-      toast.success('Projekti u fshi!');
+      toast.success('Project deleted!');
       setPortfolioItems(prev => prev.filter(p => p.id !== id));
     } catch {
-      toast.error('Dështoi fshirja e projektit');
+      toast.error('Failed to delete project');
     }
   };
 
@@ -228,53 +228,53 @@ export function AdminPanel() {
             {activeTab === 'portfolio' && (
               <div className="space-y-10">
                 <div>
-                  <h2 className="text-2xl font-bold text-[#2d2d2d] mb-6">Shto Projekt</h2>
+                  <h2 className="text-2xl font-bold text-[#2d2d2d] mb-6">Add Project</h2>
                   <form onSubmit={handlePortfolioSubmit} className="max-w-xl space-y-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Titulli</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Title</label>
                       <input required type="text" value={portfolioForm.title} onChange={e => setPortfolioForm({...portfolioForm, title: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-[#2d2d2d] outline-none focus:border-[#2d2d2d]" />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Lloji</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Type</label>
                         <select value={portfolioForm.type} onChange={e => setPortfolioForm({...portfolioForm, type: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-[#2d2d2d] outline-none focus:border-[#2d2d2d]">
                           <option value="Photography">Photography</option>
                           <option value="Videography">Videography</option>
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Kategoria (p.sh. Dasëm)</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Category (e.g. Wedding)</label>
                         <input required type="text" value={portfolioForm.category} onChange={e => setPortfolioForm({...portfolioForm, category: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-[#2d2d2d] outline-none focus:border-[#2d2d2d]" />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">URL e Medias</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Media URL</label>
                       <input required type="url" value={portfolioForm.url} onChange={e => setPortfolioForm({...portfolioForm, url: e.target.value})} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-[#2d2d2d] outline-none focus:border-[#2d2d2d]" />
                     </div>
                     <button type="submit" className="w-full py-4 bg-[#2d2d2d] text-white font-bold tracking-widest uppercase text-sm hover:bg-[#1e1e1e] transition-all mt-4">
-                      Shto në Portfolio
+                      Add to Portfolio
                     </button>
                   </form>
                 </div>
 
                 <div className="border-t border-zinc-200 pt-8">
-                  <h2 className="text-2xl font-bold text-[#2d2d2d] mb-6">Projektet Ekzistuese</h2>
+                  <h2 className="text-2xl font-bold text-[#2d2d2d] mb-6">Existing Projects</h2>
                   {portfolioLoading ? (
                     <div className="flex justify-center py-12">
                       <Loader2 className="w-8 h-8 animate-spin text-[#c8c8c8]" />
                     </div>
                   ) : portfolioItems.length === 0 ? (
-                    <p className="text-slate-400 font-light">Nuk ka projekte në portfolio aktualisht.</p>
+                    <p className="text-slate-400 font-light">No projects in portfolio yet.</p>
                   ) : (
                     <div className="overflow-x-auto">
                       <table className="w-full text-left border-collapse">
                         <thead>
                           <tr className="border-b border-zinc-200 text-xs uppercase tracking-widest text-[#707070]">
-                            <th className="pb-4 pr-4">Foto</th>
-                            <th className="pb-4 pr-4">Titulli</th>
-                            <th className="pb-4 pr-4">Lloji</th>
-                            <th className="pb-4 pr-4">Kategoria</th>
-                            <th className="pb-4">Veprimet</th>
+                            <th className="pb-4 pr-4">Photo</th>
+                            <th className="pb-4 pr-4">Title</th>
+                            <th className="pb-4 pr-4">Type</th>
+                            <th className="pb-4 pr-4">Category</th>
+                            <th className="pb-4">Actions</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-zinc-100">
@@ -296,7 +296,7 @@ export function AdminPanel() {
                                 <button
                                   onClick={() => handlePortfolioDelete(item.id)}
                                   className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 transition-colors"
-                                  title="Fshi projektin"
+                                  title="Delete project"
                                 >
                                   <Trash2 className="w-4 h-4" />
                                 </button>

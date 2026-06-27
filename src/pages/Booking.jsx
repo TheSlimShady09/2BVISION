@@ -71,7 +71,7 @@ export function Booking() {
     }
 
     if (!captchaToken) {
-      toast.error('Të lutem konfirmo që nuk je robot (CAPTCHA).');
+      toast.error('Please confirm you are not a robot (CAPTCHA).');
       return;
     }
 
