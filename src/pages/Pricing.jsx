@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { Check, Camera, Video, Star } from 'lucide-react';
+import { Check, Camera, Video, Star, MessageCircle } from 'lucide-react';
 import { useBooking } from '../context/BookingContext';
 import { useCursor } from '../context/CursorContext';
 
@@ -82,11 +82,11 @@ export function Pricing() {
           transition={{ delay: 0.2 }}
           className="text-[#a0a0a0] max-w-2xl mx-auto text-lg font-light"
         >
-          Transparent pricing for premium quality. Choose the package that best fits your vision.
+          Choose the package that best fits your vision.
         </motion.p>
       </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-16">
         {packages.map((pkg, index) => (
           <motion.div
             key={pkg.id}
@@ -98,7 +98,7 @@ export function Pricing() {
               pkg.popular 
                 ? 'border-white bg-white shadow-2xl scale-105 z-10 text-[#2d2d2d]' 
                 : 'border-[#444444] bg-[#2d2d2d] hover:border-[#555555] text-white'
-            } flex flex-col min-h-[550px]`}
+            } flex flex-col min-h-[500px]`}
           >
             {pkg.popular && (
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#2d2d2d] text-white px-4 py-1 text-xs font-bold uppercase tracking-widest border border-[#444444]">
@@ -111,9 +111,6 @@ export function Pricing() {
                 {pkg.icon}
               </div>
               <p className={`text-sm h-10 ${pkg.popular ? 'text-[#555555]' : 'text-[#a0a0a0]'}`}>{pkg.description}</p>
-            </div>
-            <div className="mb-8">
-              <span className="text-5xl font-light">{pkg.price}</span>
             </div>
             
             <ul className="space-y-4 mb-8 flex-grow">
@@ -140,6 +137,28 @@ export function Pricing() {
           </motion.div>
         ))}
       </div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 15 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="max-w-md mx-auto text-center"
+      >
+        <p className="text-sm text-[#a0a0a0] mb-3">
+          Për të marrë çmimet dhe për detaje të mëtejshme rreth paketave:
+        </p>
+        <a 
+          href="https://wa.me/355695620202?text=P%C3%ABrsh%C3%ABndetje!%20D%C3%ABshiroj%20t%C3%AB%20informohem%20mbi%20%C3%A7mimet%20e%20paketave%20tuaja."
+          target="_blank"
+          rel="noopener noreferrer"
+          onMouseEnter={setHovering}
+          onMouseLeave={setDefault}
+          className="inline-flex items-center gap-2 text-white hover:text-[#25D366] transition-colors border border-[#444444] hover:border-[#25D366]/50 bg-[#2d2d2d] px-6 py-3 text-xs font-bold uppercase tracking-widest"
+        >
+          <MessageCircle className="w-4 h-4 text-[#25D366]" />
+          Na Kontaktoni në WhatsApp
+        </a>
+      </motion.div>
     </section>
   );
 }
