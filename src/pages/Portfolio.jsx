@@ -44,9 +44,13 @@ export function Portfolio() {
     ? portfolioItems 
     : portfolioItems.filter(item => item.type === filter);
 
-  const handleProjectClick = (id) => {
-    if (String(id).startsWith('local-')) return;
-    navigate(`/project/${id}`);
+  const handleProjectClick = (item) => {
+    if (item.type === 'Videography') {
+      window.open(item.url, '_blank');
+      return;
+    }
+    if (String(item.id).startsWith('local-')) return;
+    navigate(`/project/${item.id}`);
   };
 
   return (
@@ -114,7 +118,7 @@ export function Portfolio() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
                   className="relative group cursor-pointer overflow-hidden bg-zinc-100 aspect-[4/5] md:aspect-square"
-                  onClick={() => handleProjectClick(item.id)}
+                  onClick={() => handleProjectClick(item)}
                 >
                   {item.type === 'Videography' ? (
                     <div className="w-full h-full relative">

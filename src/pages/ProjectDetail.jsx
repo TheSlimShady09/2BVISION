@@ -104,7 +104,6 @@ export function ProjectDetail() {
                 src={project.url}
                 autoPlay
                 loop
-                muted
                 controls
                 className="w-full h-full object-cover"
               />
