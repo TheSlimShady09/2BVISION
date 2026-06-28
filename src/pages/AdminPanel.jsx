@@ -17,7 +17,7 @@ export function AdminPanel() {
 
   // Forms states
   const [portfolioForm, setPortfolioForm] = useState({ title: '', type: 'Photography', url: '', category: '' });
-  const [deliverableForm, setDeliverableForm] = useState({ booking_id: '', user_id: '', url: '', type: 'Gallery' });
+  const [deliverableForm, setDeliverableForm] = useState({ booking_id: '', client_id: '', url: '', type: 'Gallery' });
   const [portfolioItems, setPortfolioItems] = useState([]);
   const [portfolioLoading, setPortfolioLoading] = useState(false);
 
@@ -115,7 +115,7 @@ export function AdminPanel() {
       const { error } = await supabase.from('client_deliverables').insert([deliverableForm]);
       if (error) throw error;
       toast.success('Deliverable assigned!');
-      setDeliverableForm({ booking_id: '', user_id: '', url: '', type: 'Gallery' });
+      setDeliverableForm({ booking_id: '', client_id: '', url: '', type: 'Gallery' });
       fetchAdminData();
     } catch {
       toast.error('Failed to assign deliverable');
@@ -342,7 +342,7 @@ export function AdminPanel() {
                       <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Select Booking</label>
                       <select required value={deliverableForm.booking_id} onChange={e => {
                         const b = bookings.find(x => x.id === e.target.value);
-                        setDeliverableForm({...deliverableForm, booking_id: b.id, user_id: b.user_id});
+                        setDeliverableForm({...deliverableForm, booking_id: b.id, client_id: b.user_id});
                       }} className="w-full bg-zinc-50 border border-zinc-200 p-3 text-[#2d2d2d] outline-none focus:border-[#2d2d2d]">
                         <option value="">-- Choose Booking --</option>
                         {bookings.filter(b => b.status === 'Completed').map(b => (

@@ -18,7 +18,7 @@ export function Dashboard() {
       try {
         const [bookingsRes, deliverablesRes] = await Promise.all([
           supabase.from('bookings').select('*').eq('user_id', user.id).order('created_at', { ascending: false }),
-          supabase.from('client_deliverables').select('*, bookings(event_type)').eq('user_id', user.id).order('created_at', { ascending: false })
+          supabase.from('client_deliverables').select('*, bookings(event_type)').eq('client_id', user.id).order('created_at', { ascending: false })
         ]);
 
         setBookings(bookingsRes.data || []);

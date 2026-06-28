@@ -6,11 +6,16 @@ class ErrorBoundary extends Component {
   static getDerivedStateFromError(error) { return { error }; }
   render() {
     if (this.state.error) {
+      const isDev = import.meta.env.DEV;
       return (
         <div style={{ padding: 40, fontFamily: 'monospace', background: '#fff', minHeight: '100vh' }}>
-          <h2 style={{ color: 'red' }}>App Error</h2>
-          <pre style={{ whiteSpace: 'pre-wrap', color: '#333' }}>{this.state.error?.message}</pre>
-          <pre style={{ whiteSpace: 'pre-wrap', color: '#999', fontSize: 12 }}>{this.state.error?.stack}</pre>
+          <h2 style={{ color: 'red' }}>Something went wrong</h2>
+          {isDev && (
+            <>
+              <pre style={{ whiteSpace: 'pre-wrap', color: '#333' }}>{this.state.error?.message}</pre>
+              <pre style={{ whiteSpace: 'pre-wrap', color: '#999', fontSize: 12 }}>{this.state.error?.stack}</pre>
+            </>
+          )}
         </div>
       );
     }

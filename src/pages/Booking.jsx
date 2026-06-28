@@ -96,7 +96,11 @@ export function Booking() {
         const { error } = await supabase.from('bookings').insert([bookingPayload]);
         if (error) {
           console.error('Supabase booking error:', error.message, error.details, error.hint);
-          toast.error(`Booking error: ${error.message}`);
+          if (error.code === '42501') {
+            toast.error('You have reached the maximum of 3 bookings per 24 hours. Please try again tomorrow.');
+          } else {
+            toast.error(`Booking error: ${error.message}`);
+          }
           return;
         }
         saved = true;
