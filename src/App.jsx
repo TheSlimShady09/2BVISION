@@ -26,6 +26,7 @@ import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { BookingProvider } from './context/BookingContext';
 import { CursorProvider } from './context/CursorContext';
+import { LanguageProvider } from './context/LanguageContext';
 
 import { FloatingWhatsApp } from './components/ui/FloatingWhatsApp';
 
@@ -105,18 +106,20 @@ function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter>
-        <AuthProvider>
-          <BookingProvider>
-            <Toaster position="bottom-center" toastOptions={{ className: 'rounded-none border border-zinc-200 text-sm tracking-wider font-medium' }} />
-            <Routes>
-              {/* Admin — completely isolated, no Navbar/Footer/Cursor */}
-              <Route path="/admin" element={<AdminDashboard />} />
+        <LanguageProvider>
+          <AuthProvider>
+            <BookingProvider>
+              <Toaster position="bottom-center" toastOptions={{ className: 'rounded-none border border-zinc-200 text-sm tracking-wider font-medium' }} />
+              <Routes>
+                {/* Admin — completely isolated, no Navbar/Footer/Cursor */}
+                <Route path="/admin" element={<AdminDashboard />} />
 
-              {/* Everything else — wrapped in public layout */}
-              <Route path="/*" element={<PublicLayout />} />
-            </Routes>
-          </BookingProvider>
-        </AuthProvider>
+                {/* Everything else — wrapped in public layout */}
+                <Route path="/*" element={<PublicLayout />} />
+              </Routes>
+            </BookingProvider>
+          </AuthProvider>
+        </LanguageProvider>
       </BrowserRouter>
     </ErrorBoundary>
   );

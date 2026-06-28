@@ -2,39 +2,26 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Quote } from 'lucide-react';
 import { useCursor } from '../context/CursorContext';
-
-const testimonials = [
-  {
-    id: 1,
-    name: "Arta & Besnik",
-    role: "Klientë Dasme",
-    text: "2B Vision nuk na filmoi vetëm dasmën; ata kapën thelbin e historisë sonë të dashurisë. Cilësia kinematografike e punës së tyre është e papërsëritshme. U mbetëm pa fjalë."
-  },
-  {
-    id: 2,
-    name: "Mirela",
-    role: "Drejtoreshë Krijuese",
-    text: "Bashkëpunimi me ta për fushatën tonë komerciale ishte një zbulim. Sjellin një nivel sofistikimi dhe elegance minimaliste që ngriti plotësisht markën tonë."
-  },
-  {
-    id: 3,
-    name: "Erion",
-    role: "Seancë Portretesh",
-    text: "Nuk jam ndjerë kurrë kaq rehat para kamerës. Drejtimi i ekipit është i butë, profesional, dhe rezulton në portrete që duken sikur i takojnë një reviste luksoze."
-  }
-];
-
+import { useLanguage } from '../context/LanguageContext';
 
 export function Testimonials() {
   const [current, setCurrent] = useState(0);
   const { setHovering, setDefault } = useCursor();
+  const { t } = useLanguage();
+
+  const testimonialItems = t('testimonials.items');
 
   useEffect(() => {
+    if (!Array.isArray(testimonialItems) || testimonialItems.length === 0) return;
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % testimonials.length);
+      setCurrent((prev) => (prev + 1) % testimonialItems.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [testimonialItems]);
+
+  if (!Array.isArray(testimonialItems) || testimonialItems.length === 0) {
+    return null;
+  }
 
   return (
     <section id="testimonials" className="py-24 bg-[#1e1e1e] overflow-hidden relative">
@@ -53,11 +40,11 @@ export function Testimonials() {
               className="absolute inset-0 flex flex-col items-center justify-center"
             >
               <p className="text-xl md:text-3xl font-light text-white leading-relaxed italic mb-8">
-                "{testimonials[current].text}"
+                "{testimonialItems[current].text}"
               </p>
               <div>
-                <h4 className="text-sm font-bold tracking-widest uppercase text-slate-200">{testimonials[current].name}</h4>
-                <p className="text-sm text-[#707070] mt-1">{testimonials[current].role}</p>
+                <h4 className="text-sm font-bold tracking-widest uppercase text-slate-200">{testimonialItems[current].name}</h4>
+                <p className="text-sm text-[#707070] mt-1">{testimonialItems[current].role}</p>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -65,7 +52,7 @@ export function Testimonials() {
 
         {/* Dots */}
         <div className="flex justify-center gap-3 mt-8">
-          {testimonials.map((_, idx) => (
+          {testimonialItems.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrent(idx)}

@@ -4,6 +4,7 @@ import { Play, Loader2, ArrowUpRight } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useLanguage } from '../context/LanguageContext';
 
 const LOCAL_PORTFOLIO = [
   { id: 'local-1', type: 'Videography', category: 'Videography', title: 'A Well-Executed Project', url: '/portfolio-media/portfolio-well-executed.mp4' },
@@ -24,6 +25,7 @@ export function Portfolio() {
   const [portfolioItems, setPortfolioItems] = useState(LOCAL_PORTFOLIO);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const fetchPortfolio = async () => {
@@ -64,7 +66,7 @@ export function Portfolio() {
           viewport={{ once: true }}
           className="text-4xl md:text-6xl font-extrabold uppercase tracking-widest text-[#2d2d2d] mb-8"
         >
-          Portfolio
+          {t('portfolio.title')}
         </motion.h2>
         
         <motion.div 
@@ -84,7 +86,12 @@ export function Portfolio() {
                   : 'bg-zinc-100 text-[#707070] hover:bg-zinc-200 hover:text-[#2d2d2d]'
               }`}
             >
-              {tab}
+              {tab === 'All' 
+                ? t('portfolio.all') 
+                : tab === 'Photography' 
+                  ? t('portfolio.photography') 
+                  : t('portfolio.videography')
+              }
             </button>
           ))}
         </motion.div>
@@ -100,7 +107,10 @@ export function Portfolio() {
         ) : filteredItems.length === 0 ? (
           <div className="text-center py-20">
             <div className="text-slate-400 font-light text-lg">
-              {portfolioItems.length === 0 ? 'Portfolio është duke u ndërtuar. Kthehuni së shpejti!' : 'Nuk ka projekte për këtë kategori.'}
+              {portfolioItems.length === 0 
+                ? t('portfolio.underConstruction') 
+                : t('portfolio.noProjects')
+              }
             </div>
           </div>
         ) : (
@@ -149,7 +159,14 @@ export function Portfolio() {
                   <div className="absolute inset-0 p-8 flex flex-col justify-end translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
                     <div className="flex items-center justify-between">
                       <div>
-                        <span className="text-zinc-300 text-xs font-bold uppercase tracking-[0.2em]">{item.category}</span>
+                        <span className="text-zinc-300 text-xs font-bold uppercase tracking-[0.2em]">
+                          {item.category === 'Videography'
+                            ? t('portfolio.videography')
+                            : item.category === 'Photography'
+                              ? t('portfolio.photography')
+                              : item.category
+                          }
+                        </span>
                         <h3 className="text-2xl font-bold text-white mt-1 leading-tight">{item.title}</h3>
                       </div>
                       <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white -rotate-45 group-hover:rotate-0 transition-transform duration-500">

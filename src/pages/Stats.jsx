@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 function Counter({ end, suffix = "", duration = 2 }) {
   const [count, setCount] = useState(0);
@@ -25,6 +26,8 @@ function Counter({ end, suffix = "", duration = 2 }) {
 }
 
 export function Stats() {
+  const { t } = useLanguage();
+
   return (
     <section id="stats" className="py-20 bg-[#1e1e1e] border-y border-[#2d2d2d]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,7 +42,7 @@ export function Stats() {
             <div className="text-5xl md:text-6xl font-light text-white mb-2 tracking-tighter">
               <Counter end={5} suffix="+" />
             </div>
-            <div className="text-slate-400 text-xs font-bold uppercase tracking-widest">Years of Experience</div>
+            <div className="text-slate-400 text-xs font-bold uppercase tracking-widest">{t('stats.experience')}</div>
           </motion.div>
 
           <motion.div 
@@ -51,7 +54,7 @@ export function Stats() {
             <div className="text-5xl md:text-6xl font-light text-white mb-2 tracking-tighter">
               <Counter end={450} suffix="+" />
             </div>
-            <div className="text-slate-400 text-xs font-bold uppercase tracking-widest">Projects Completed</div>
+            <div className="text-slate-400 text-xs font-bold uppercase tracking-widest">{t('stats.completed')}</div>
           </motion.div>
 
           <motion.div 
@@ -63,7 +66,7 @@ export function Stats() {
             <div className="text-5xl md:text-6xl font-light text-white mb-2 tracking-tighter">
               <Counter end={100} suffix="%" />
             </div>
-            <div className="text-slate-400 text-xs font-bold uppercase tracking-widest">Happy Clients</div>
+            <div className="text-slate-400 text-xs font-bold uppercase tracking-widest">{t('stats.clients')}</div>
           </motion.div>
 
           <motion.div 
@@ -75,7 +78,7 @@ export function Stats() {
             <div className="text-5xl md:text-6xl font-light text-white mb-2 tracking-tighter">
               <Counter end={200} suffix="K+" />
             </div>
-            <div className="text-slate-400 text-xs font-bold uppercase tracking-widest">Total Video Views</div>
+            <div className="text-slate-400 text-xs font-bold uppercase tracking-widest">{t('stats.views')}</div>
           </motion.div>
 
         </div>

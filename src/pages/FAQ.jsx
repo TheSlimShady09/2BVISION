@@ -2,44 +2,31 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
 import { useCursor } from '../context/CursorContext';
-
-const faqs = [
-  {
-    question: "How far in advance should we book?",
-    answer: "For weddings, we recommend booking 9-12 months in advance as our calendar fills quickly. For portraits and commercial sessions, 4-6 weeks is usually sufficient."
-  },
-  {
-    question: "Do you travel for destination weddings?",
-    answer: "Absolutely. We are available for assignments worldwide. Travel and accommodation fees are calculated based on the destination and added to your package."
-  },
-  {
-    question: "When will we receive our final photos/video?",
-    answer: "Portrait galleries are delivered within 2 weeks. Full wedding galleries and cinematic films are typically delivered within 6-8 weeks, ensuring meticulous attention to editing."
-  },
-  {
-    question: "Do we get raw, unedited files?",
-    answer: "We do not provide raw files. Editing is half the magic of our cinematic style, and we only deliver finished, color-graded masterpieces that represent our brand standard."
-  }
-];
+import { useLanguage } from '../context/LanguageContext';
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState(null);
   const { setHovering, setDefault } = useCursor();
+  const { t } = useLanguage();
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const faqItems = t('faq.items');
+
   return (
     <section id="faq" className="py-24 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-widest text-[#2d2d2d] mb-4">FAQ</h2>
-          <p className="text-[#707070]">Common questions about our process.</p>
+          <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-widest text-[#2d2d2d] mb-4">
+            {t('faq.title')}
+          </h2>
+          <p className="text-[#707070]">{t('faq.subtitle')}</p>
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
+          {Array.isArray(faqItems) && faqItems.map((faq, index) => (
             <div 
               key={index} 
               className="border-b border-zinc-200 pb-4"
@@ -50,7 +37,7 @@ export function FAQ() {
                 onMouseEnter={setHovering}
                 onMouseLeave={setDefault}
               >
-                <span className="text-lg font-medium text-[#383838]">{faq.question}</span>
+                <span className="text-lg font-medium text-[#383838]">{faq.q}</span>
                 {openIndex === index ? (
                   <Minus className="w-5 h-5 text-slate-400 shrink-0" />
                 ) : (
@@ -68,7 +55,7 @@ export function FAQ() {
                     className="overflow-hidden"
                   >
                     <p className="pb-6 text-[#555555] leading-relaxed font-light">
-                      {faq.answer}
+                      {faq.a}
                     </p>
                   </motion.div>
                 )}

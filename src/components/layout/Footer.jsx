@@ -1,10 +1,11 @@
-
 import { MessageCircle, Phone, Mail, Image as ImageIcon } from 'lucide-react';
 import { useCursor } from '../../context/CursorContext';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../../context/LanguageContext';
 
 export function Footer() {
   const { setHovering, setDefault } = useCursor();
+  const { t } = useLanguage();
 
   return (
     <footer className="bg-[#1e1e1e] border-t border-[#383838] pt-16 pb-8 text-white">
@@ -27,12 +28,12 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-[#c8c8c8] text-sm leading-relaxed max-w-sm">
-              Capturing moments with cinematic precision. Premium photography and videography for weddings, commercial projects, and high-end portraits.
+              {t('footer.desc')}
             </p>
           </div>
           
           <div>
-            <h3 className="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Contact</h3>
+            <h3 className="text-white font-semibold mb-4 uppercase tracking-wider text-sm">{t('footer.contact')}</h3>
             <ul className="space-y-3">
               <li>
                 <a 
@@ -60,7 +61,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Social</h3>
+            <h3 className="text-white font-semibold mb-4 uppercase tracking-wider text-sm">{t('footer.social')}</h3>
             <div className="flex gap-4">
               <a 
                 href="#" 
@@ -84,7 +85,7 @@ export function Footer() {
         
         <div className="border-t border-[#383838] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-slate-400 text-sm">
-            &copy; {new Date().getFullYear()} 2B Vision. All rights reserved.
+            &copy; {new Date().getFullYear()} 2B Vision. {t('footer.rights')}
           </p>
           <div className="flex gap-6 text-sm">
             <a 
@@ -93,7 +94,7 @@ export function Footer() {
               onMouseEnter={setHovering}
               onMouseLeave={setDefault}
             >
-              Privacy Policy
+              {t('footer.privacy')}
             </a>
             <a 
               href="#" 
@@ -101,7 +102,7 @@ export function Footer() {
               onMouseEnter={setHovering}
               onMouseLeave={setDefault}
             >
-              Terms of Service
+              {t('footer.terms')}
             </a>
           </div>
         </div>

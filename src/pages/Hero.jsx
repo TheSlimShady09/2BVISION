@@ -2,9 +2,11 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useCursor } from '../context/CursorContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export function Hero() {
   const { setHovering, setDefault } = useCursor();
+  const { t, language } = useLanguage();
 
   const scrollToBooking = (e) => {
     e.preventDefault();
@@ -35,24 +37,48 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 uppercase leading-tight drop-shadow-lg">
-            Where your{" "}
-            <span
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontStyle: "italic",
-                fontWeight: 700,
-                color: "#ffffff",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-                fontSize: "1.15em",
-                display: "inline-block",
-              }}
-            >
-              Vision
-            </span>{" "}
-            becomes <br />
-            <span className="italic font-serif font-light text-zinc-200">timeless art.</span>
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 uppercase leading-tight drop-shadow-lg">
+            {language === 'en' ? (
+              <>
+                Where your{" "}
+                <span
+                  style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontStyle: "italic",
+                    fontWeight: 700,
+                    color: "#ffffff",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    fontSize: "1.15em",
+                    display: "inline-block",
+                  }}
+                >
+                  Vision
+                </span>{" "}
+                becomes <br />
+                <span className="italic font-serif font-light text-zinc-200">timeless art.</span>
+              </>
+            ) : (
+              <>
+                Aty ku{" "}
+                <span
+                  style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontStyle: "italic",
+                    fontWeight: 700,
+                    color: "#ffffff",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    fontSize: "1.15em",
+                    display: "inline-block",
+                  }}
+                >
+                  Vizioni
+                </span>{" "}
+                tuaj kthehet në <br />
+                <span className="italic font-serif font-light text-zinc-200">art të përjetshëm.</span>
+              </>
+            )}
           </h1>
           <div className="flex justify-center items-center mt-12">
             <a 
@@ -62,7 +88,7 @@ export function Hero() {
               onMouseLeave={setDefault}
               className="group relative px-8 py-4 bg-[#2d2d2d] text-white font-bold text-lg rounded-none hover:bg-[#1e1e1e] transition-colors flex items-center gap-3 overflow-hidden shadow-2xl shadow-black/50"
             >
-              <span className="relative z-10 tracking-widest uppercase text-sm">Book a Session</span>
+              <span className="relative z-10 tracking-widest uppercase text-sm">{t('hero.bookSession')}</span>
               <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>

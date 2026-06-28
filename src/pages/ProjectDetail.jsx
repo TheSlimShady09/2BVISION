@@ -4,11 +4,13 @@ import { supabase } from '../lib/supabase';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import { useCursor } from '../context/CursorContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export function ProjectDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { setHovering, setDefault } = useCursor();
+  const { t } = useLanguage();
   
   const [project, setProject] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +30,7 @@ export function ProjectDetail() {
         setProject(data);
       } catch (err) {
         console.error('Error fetching project:', err);
-        setError('Projekti nuk u gjet ose ka ndodhur një gabim.');
+        setError(t('portfolio.noProjects'));
       } finally {
         setIsLoading(false);
       }
@@ -54,7 +56,7 @@ export function ProjectDetail() {
           onClick={() => navigate('/#portfolio')}
           className="px-6 py-3 border border-white hover:bg-white hover:text-black transition-colors uppercase tracking-widest text-xs font-bold"
         >
-          Return to Portfolio
+          {t('portfolio.backToPortfolio')}
         </button>
       </div>
     );
@@ -74,7 +76,7 @@ export function ProjectDetail() {
           className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-12 uppercase tracking-widest text-xs font-bold group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          Kthehu te Portfolio
+          {t('portfolio.backToPortfolio')}
         </motion.button>
 
         {/* Hero Section */}
@@ -87,7 +89,7 @@ export function ProjectDetail() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
             <div>
               <span className="text-zinc-500 text-sm font-bold uppercase tracking-[0.2em] block mb-4">
-                {project.type} &bull; {project.category}
+                {project.type === 'Videography' ? t('portfolio.videography') : project.type === 'Photography' ? t('portfolio.photography') : project.type} &bull; {project.category}
               </span>
               <h1 className="text-5xl md:text-7xl font-extrabold uppercase tracking-tight leading-none">
                 {project.title}
@@ -126,22 +128,22 @@ export function ProjectDetail() {
           className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-zinc-800 pt-16"
         >
           <div className="md:col-span-1">
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mb-4">Rreth Projektit</h3>
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mb-4">{t('portfolio.aboutProject')}</h3>
             <div className="space-y-4">
               <div>
-                <span className="text-zinc-600 text-xs uppercase tracking-widest block mb-1">Klienti / Kategoria</span>
+                <span className="text-zinc-600 text-xs uppercase tracking-widest block mb-1">{t('portfolio.clientCategory')}</span>
                 <span className="text-lg">{project.category}</span>
               </div>
               <div>
-                <span className="text-zinc-600 text-xs uppercase tracking-widest block mb-1">Shërbimi</span>
-                <span className="text-lg">{project.type}</span>
+                <span className="text-zinc-600 text-xs uppercase tracking-widest block mb-1">{t('portfolio.service')}</span>
+                <span className="text-lg">{project.type === 'Videography' ? t('portfolio.videography') : project.type === 'Photography' ? t('portfolio.photography') : project.type}</span>
               </div>
             </div>
           </div>
           
           <div className="md:col-span-2">
             <h3 className="text-2xl md:text-4xl font-light leading-tight text-zinc-300">
-              {project.description || 'Një vështrim kinematografik dhe një qasje unike për të kapur momentet më të rëndësishme. Ky projekt thekson dedikimin tonë ndaj detajeve dhe artit vizual.'}
+              {project.description || t('portfolio.defaultDescription')}
             </h3>
           </div>
         </motion.div>

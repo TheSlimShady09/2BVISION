@@ -5,13 +5,14 @@ import { cn } from '../../lib/utils';
 import { useAuth } from '../../context/AuthContext';
 import { useCursor } from '../../context/CursorContext';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useLanguage } from '../../context/LanguageContext';
 
 const navLinks = [
-  { name: 'Home', path: 'home' },
-  { name: 'Our Story', path: 'story' },
-  { name: 'Portfolio', path: 'portfolio' },
-  { name: 'Pricing', path: 'pricing' },
-  { name: 'Booking', path: 'booking' },
+  { nameKey: 'nav.home', path: 'home' },
+  { nameKey: 'nav.story', path: 'story' },
+  { nameKey: 'nav.portfolio', path: 'portfolio' },
+  { nameKey: 'nav.pricing', path: 'pricing' },
+  { nameKey: 'nav.booking', path: 'booking' },
 ];
 
 export function Navbar() {
@@ -20,6 +21,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const { user } = useAuth();
   const { setHovering, setDefault } = useCursor();
+  const { language, changeLanguage, t } = useLanguage();
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -128,7 +130,7 @@ export function Navbar() {
             <div className="ml-10 flex items-center space-x-8">
               {navLinks.map((link) => (
                 <a
-                  key={link.name}
+                  key={link.nameKey}
                   href={`/#${link.path}`}
                   onClick={(e) => handleNavClick(e, link.path)}
                   onMouseEnter={setHovering}
@@ -140,7 +142,7 @@ export function Navbar() {
                       : (activeSection === link.path ? "text-[#2d2d2d]" : "text-[#707070] hover:text-[#2d2d2d]")
                   )}
                 >
-                  {link.name}
+                  {t(link.nameKey)}
                   {activeSection === link.path && (
                     <motion.div
                       layoutId="underline"
@@ -164,12 +166,47 @@ export function Navbar() {
                 {user ? (
                   <>
                     <User className="w-4 h-4" />
-                    Dashboard
+                    {t('nav.dashboard')}
                   </>
                 ) : (
-                  'Client Portal'
+                  t('nav.portal')
                 )}
               </button>
+
+              {/* Sleek inline language switcher */}
+              <div className={cn(
+                "flex items-center gap-0.5 rounded-full p-0.5 border transition-all duration-300",
+                isTransparent 
+                  ? "bg-white/10 border-white/20" 
+                  : "bg-zinc-100 border-zinc-200"
+              )}>
+                <button
+                  onClick={() => changeLanguage('sq')}
+                  className={cn(
+                    "px-3 py-1 rounded-full text-[10px] font-extrabold transition-all duration-300 uppercase tracking-wider",
+                    language === 'sq'
+                      ? (isTransparent ? "bg-white text-black shadow-md scale-105" : "bg-[#2d2d2d] text-white shadow-md scale-105")
+                      : (isTransparent ? "text-white/70 hover:text-white" : "text-[#707070] hover:text-[#2d2d2d]")
+                  )}
+                  onMouseEnter={setHovering}
+                  onMouseLeave={setDefault}
+                >
+                  SQ
+                </button>
+                <button
+                  onClick={() => changeLanguage('en')}
+                  className={cn(
+                    "px-3 py-1 rounded-full text-[10px] font-extrabold transition-all duration-300 uppercase tracking-wider",
+                    language === 'en'
+                      ? (isTransparent ? "bg-white text-black shadow-md scale-105" : "bg-[#2d2d2d] text-white shadow-md scale-105")
+                      : (isTransparent ? "text-white/70 hover:text-white" : "text-[#707070] hover:text-[#2d2d2d]")
+                  )}
+                  onMouseEnter={setHovering}
+                  onMouseLeave={setDefault}
+                >
+                  EN
+                </button>
+              </div>
             </div>
           </div>
           <div className="-mr-2 flex md:hidden">
@@ -198,10 +235,10 @@ export function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-white border-b border-zinc-200 overflow-hidden"
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 flex flex-col gap-1">
               {navLinks.map((link) => (
                 <a
-                  key={link.name}
+                  key={link.nameKey}
                   href={`/#${link.path}`}
                   onClick={(e) => handleNavClick(e, link.path)}
                   className={cn(
@@ -211,15 +248,41 @@ export function Navbar() {
                       : "text-[#707070] hover:bg-zinc-50 hover:text-[#2d2d2d]"
                   )}
                 >
-                  {link.name}
+                  {t(link.nameKey)}
                 </a>
               ))}
               <button
                 onClick={(e) => handleNavClick(e, 'dashboard')}
-                className="w-full block px-3 py-2 mt-4 rounded-md text-base font-semibold bg-[#2d2d2d] text-white text-center"
+                className="w-full block px-3 py-2 mt-2 rounded-md text-base font-semibold bg-[#2d2d2d] text-white text-center"
               >
-                {user ? 'Dashboard' : 'Client Portal'}
+                {user ? t('nav.dashboard') : t('nav.portal')}
               </button>
+
+              {/* Mobile Language Switcher */}
+              <div className="flex items-center justify-center gap-2 mt-4 pt-4 border-t border-zinc-100">
+                <button
+                  onClick={() => { changeLanguage('sq'); setIsOpen(false); }}
+                  className={cn(
+                    "px-4 py-2 rounded-full text-xs font-extrabold uppercase tracking-wider transition-colors",
+                    language === 'sq'
+                      ? "bg-[#2d2d2d] text-white shadow-sm"
+                      : "text-[#707070] hover:bg-zinc-100"
+                  )}
+                >
+                  Shqip (SQ)
+                </button>
+                <button
+                  onClick={() => { changeLanguage('en'); setIsOpen(false); }}
+                  className={cn(
+                    "px-4 py-2 rounded-full text-xs font-extrabold uppercase tracking-wider transition-colors",
+                    language === 'en'
+                      ? "bg-[#2d2d2d] text-white shadow-sm"
+                      : "text-[#707070] hover:bg-zinc-100"
+                  )}
+                >
+                  English (EN)
+                </button>
+              </div>
             </div>
           </motion.div>
         )}

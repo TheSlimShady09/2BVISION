@@ -8,7 +8,9 @@ import { supabase } from '../lib/supabase';
 import ReCAPTCHA from 'react-google-recaptcha';
 import toast from 'react-hot-toast';
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, isToday, isBefore, startOfDay } from 'date-fns';
+import { sq, enUS } from 'date-fns/locale';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, CheckCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const timeSlots = [
   '09:00 AM', '10:00 AM', '11:00 AM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'
@@ -19,6 +21,7 @@ export function Booking() {
   const { globalSelectedPackage, addBooking } = useBooking();
   const { setHovering, setDefault } = useCursor();
   const navigate = useNavigate();
+  const { t, language } = useLanguage();
   const [captchaToken, setCaptchaToken] = useState(null);
   const recaptchaRef = useRef(null);
   
@@ -66,12 +69,12 @@ export function Booking() {
     }
 
     if (!selectedDate || !selectedTime) {
-      toast.error('Please select a date and time.');
+      toast.error(t('booking.errSelectDateTime'));
       return;
     }
 
     if (!captchaToken) {
-      toast.error('Please confirm you are not a robot (CAPTCHA).');
+      toast.error(t('booking.errCaptcha'));
       return;
     }
 
@@ -97,7 +100,7 @@ export function Booking() {
         if (error) {
           console.error('Supabase booking error:', error.message, error.details, error.hint);
           if (error.code === '42501') {
-            toast.error('You have reached the maximum of 3 bookings per 24 hours. Please try again tomorrow.');
+            toast.error(language === 'sq' ? 'Keni arritur maksimumin prej 3 rezervimesh në 24 orë. Ju lutemi provoni përsëri nesër.' : 'You have reached the maximum of 3 bookings per 24 hours. Please try again tomorrow.');
           } else {
             toast.error(`Booking error: ${error.message}`);
           }
@@ -106,7 +109,7 @@ export function Booking() {
         saved = true;
       } catch (err) {
         console.error('Network error submitting booking:', err);
-        toast.error('Network error. Saving booking locally instead.');
+        toast.error(language === 'sq' ? 'Gabim rrjeti. Po ruhet rezervimi lokalisht.' : 'Network error. Saving booking locally instead.');
       }
     }
 
@@ -126,6 +129,10 @@ export function Booking() {
     }, 3000);
   };
 
+  const weekDays = language === 'sq' 
+    ? ['Di', 'Hë', 'Ma', 'Më', 'En', 'Pr', 'Sh'] 
+    : ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+
   return (
     <section id="booking" className="min-h-screen bg-white py-24 px-4 sm:px-6 lg:px-8 border-t border-zinc-200">
       <div className="max-w-5xl mx-auto">
@@ -137,9 +144,9 @@ export function Booking() {
             className="bg-zinc-50 p-12 border border-zinc-200 text-center w-full my-32"
           >
             <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold text-[#2d2d2d] mb-4">Booking Confirmed!</h2>
+            <h2 className="text-3xl font-bold text-[#2d2d2d] mb-4">{t('booking.confirmedTitle')}</h2>
             <p className="text-[#707070] mb-8">
-              Your session has been successfully booked. Please check your Client Portal.
+              {t('booking.confirmedDesc')}
             </p>
           </motion.div>
         ) : (
@@ -151,10 +158,10 @@ export function Booking() {
                 viewport={{ once: true }}
                 className="text-4xl md:text-6xl font-bold uppercase tracking-widest text-[#2d2d2d] mb-4"
               >
-                Book a Session
+                {t('booking.title')}
               </motion.h2>
               <p className="text-[#707070] max-w-2xl mx-auto font-light">
-                Select your preferred date and time to reserve your cinematic experience.
+                {t('booking.subtitle')}
               </p>
             </div>
 
@@ -169,7 +176,7 @@ export function Booking() {
                 <div className="flex items-center justify-between mb-8">
                   <h3 className="text-2xl font-bold text-[#2d2d2d] flex items-center gap-2">
                     <CalendarIcon className="w-5 h-5 text-slate-400" />
-                    Select Date
+                    {t('booking.selectDate')}
                   </h3>
                   <div className="flex gap-4">
                     <button 
@@ -182,7 +189,7 @@ export function Booking() {
                       <ChevronLeft className="w-5 h-5" />
                     </button>
                     <span className="text-[#2d2d2d] font-medium min-w-[120px] text-center">
-                      {format(currentMonth, 'MMMM yyyy')}
+                      {format(currentMonth, 'MMMM yyyy', { locale: language === 'sq' ? sq : enUS })}
                     </span>
                     <button 
                       onClick={handleNextMonth} 
@@ -197,7 +204,7 @@ export function Booking() {
                 </div>
 
                 <div className="grid grid-cols-7 gap-2 mb-4 text-center">
-                  {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
+                  {weekDays.map(day => (
                     <div key={day} className="text-slate-400 text-xs font-bold uppercase">{day}</div>
                   ))}
                 </div>
@@ -238,7 +245,7 @@ export function Booking() {
                       className="mt-8 overflow-hidden"
                     >
                       <h4 className="text-xs font-bold text-[#707070] uppercase tracking-wider mb-4 flex items-center gap-2">
-                        <Clock className="w-4 h-4" /> Available Times
+                        <Clock className="w-4 h-4" /> {t('booking.availableTimes')}
                       </h4>
                       <div className="grid grid-cols-3 gap-3">
                         {timeSlots.map(time => (
@@ -270,12 +277,12 @@ export function Booking() {
                 viewport={{ once: true }}
                 className="bg-zinc-50 p-8 border border-zinc-200"
               >
-                <h3 className="text-2xl font-bold text-[#2d2d2d] mb-8">Details</h3>
+                <h3 className="text-2xl font-bold text-[#2d2d2d] mb-8">{t('booking.details')}</h3>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 gap-6">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Full Name</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">{t('booking.fullName')}</label>
                       <input
                         type="text"
                         name="name"
@@ -287,7 +294,7 @@ export function Booking() {
                     </div>
                     
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Email Address</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">{t('booking.emailAddress')}</label>
                       <input
                         type="email"
                         name="email"
@@ -299,7 +306,7 @@ export function Booking() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Phone Number</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">{t('booking.phoneNumber')}</label>
                       <input
                         type="tel"
                         name="phone"
@@ -312,37 +319,37 @@ export function Booking() {
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Event Type</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">{t('booking.eventType')}</label>
                         <select
                           name="eventType"
                           value={formData.eventType}
                           onChange={handleChange}
                           className="w-full bg-white border border-zinc-200 px-4 py-3 text-[#2d2d2d] focus:outline-none focus:ring-1 focus:ring-[#2d2d2d] focus:border-[#2d2d2d] transition-all appearance-none"
                         >
-                          <option value="Portrait">Portrait</option>
-                          <option value="Wedding">Wedding</option>
-                          <option value="Commercial">Commercial</option>
-                          <option value="Other">Other</option>
+                          <option value="Portrait">{t('booking.portrait')}</option>
+                          <option value="Wedding">{t('booking.wedding')}</option>
+                          <option value="Commercial">{t('booking.commercial')}</option>
+                          <option value="Other">{t('booking.other')}</option>
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Package</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">{t('booking.package')}</label>
                         <select
                           name="packageId"
                           value={formData.packageId}
                           onChange={handleChange}
                           className="w-full bg-white border border-zinc-200 px-4 py-3 text-[#2d2d2d] focus:outline-none focus:ring-1 focus:ring-[#2d2d2d] focus:border-[#2d2d2d] transition-all appearance-none"
                         >
-                          <option value="">Select Package</option>
-                          <option value="essential-story">Essential Story</option>
-                          <option value="cinematic-legacy">Cinematic Legacy</option>
-                          <option value="commercial-vision">Commercial Vision</option>
+                          <option value="">{t('booking.selectPackageOption')}</option>
+                          <option value="essential-story">{t('pricing.essentialName')}</option>
+                          <option value="cinematic-legacy">{t('pricing.cinematicName')}</option>
+                          <option value="commercial-vision">{t('pricing.commercialName')}</option>
                         </select>
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">Additional Notes</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#707070] mb-2">{t('booking.notes')}</label>
                       <textarea
                         name="notes"
                         rows={3}
@@ -355,7 +362,7 @@ export function Booking() {
 
                   {!user && (
                     <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 text-sm mt-4">
-                      You will be asked to sign in or create an account via the Client Portal to confirm your booking.
+                      {t('booking.authNotice')}
                     </div>
                   )}
 
@@ -379,7 +386,7 @@ export function Booking() {
                     onMouseLeave={setDefault}
                     className="w-full py-4 bg-[#2d2d2d] text-white font-bold tracking-widest uppercase text-sm hover:bg-[#1e1e1e] transition-all disabled:opacity-50 disabled:bg-zinc-400 mt-8"
                   >
-                    Confirm Booking
+                    {t('booking.confirmBooking')}
                   </button>
                 </form>
               </motion.div>
