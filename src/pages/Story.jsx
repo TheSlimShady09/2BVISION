@@ -1,12 +1,16 @@
-
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import { Helmet } from 'react-helmet-async';
 
 export function Story() {
   const { t } = useLanguage();
 
   return (
     <section id="story" className="py-24 bg-zinc-50 relative">
+      <Helmet>
+        <title>Our Story | 2B Vision</title>
+        <meta name="description" content="The story of 2B Vision." />
+      </Helmet>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           

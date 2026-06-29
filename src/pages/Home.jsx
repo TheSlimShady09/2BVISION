@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 // A simple counter component that animates from 0 to `end`
 function Counter({ end, suffix = "", duration = 2 }) {
@@ -35,6 +36,10 @@ export function Home() {
 
   return (
     <div className="w-full">
+      <Helmet>
+        <title>2B Vision | Art i Përjetshëm - Timeless Art</title>
+        <meta name="description" content="Where your vision becomes timeless art. Aty ku vizioni juaj kthehet në art të përjetshëm." />
+      </Helmet>
       {/* Hero Section */}
       <section id="home" className="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">

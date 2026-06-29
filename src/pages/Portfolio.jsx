@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useLanguage } from '../context/LanguageContext';
+import { Helmet } from 'react-helmet-async';
 
 const LOCAL_PORTFOLIO = [
   { id: 'local-1', type: 'Videography', category: 'Videography', title: 'A Well-Executed Project', url: '/portfolio-media/portfolio-well-executed.mp4' },
@@ -57,6 +58,10 @@ export function Portfolio() {
 
   return (
     <section id="portfolio" className="min-h-screen bg-white flex flex-col py-24 relative overflow-hidden selection:bg-[#1e1e1e] selection:text-white">
+      <Helmet>
+        <title>Portfolio | 2B Vision</title>
+        <meta name="description" content="View our portfolio of photography and videography projects." />
+      </Helmet>
       
       {/* Header & Tabs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 text-center mb-16">
