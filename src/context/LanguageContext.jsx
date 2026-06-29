@@ -188,17 +188,17 @@ const translations = {
       back: "Kthehu",
     },
     nav: {
-      home: "Kreu",
+      home: "Kryefaqja",
       story: "Historia Jonë",
-      portfolio: "Portfolio",
+      portfolio: "Portofoli",
       pricing: "Çmimet",
-      booking: "Rezervo",
+      booking: "Rezervime",
       portal: "Portali i Klientit",
       dashboard: "Paneli",
     },
     hero: {
       vision: "Vizioni",
-      becomes: "juaj kthehet në",
+      becomes: "kthehet në",
       timelessArt: "art të përjetshëm.",
       bookSession: "Rezervo një Seancë",
     },
@@ -206,83 +206,83 @@ const translations = {
       title: "Historia Jonë",
       subtitle: "Çdo kryevepër fillon me një",
       subtitleHighlight: "vizion të vetëm.",
-      p1: "2B Vision u themelua nga krijues të pasionuar të cilët besonin se fotografia dhe videografia nuk kanë të bëjnë vetëm me kapjen e imazheve, por me tregimin e historive që i mbijetojnë kohës.",
-      p2: "Duke filluar me vetëm një aparat fotografik dhe një ëndërr të madhe, rruga jonë drejt suksesit u shtrua me përkushtim të pafund, një sy për emocionet e papërpunuara dhe një qasje kinematografike për çdo projekt. Sot, ne jemi një studio elitare e besuar nga qindra klientë për të dokumentuar trashëgiminë e tyre.",
+      p1: "2B Vision u themelua nga krijues të pasionuar që besonin se fotografia dhe videografia nuk janë vetëm për të kapur imazhe, por për të treguar histori që i rezistojnë kohës.",
+      p2: "Duke nisur me vetëm një aparat dhe një ëndërr të madhe, rruga jonë drejt suksesit u ndërtua mbi përkushtim të pafund, vëmendje ndaj emocioneve të vërteta dhe një qasje kinematografike ndaj çdo projekti. Sot jemi një studio e shquar, e besuar nga qindra klientë për të dokumentuar trashëgiminë e tyre.",
     },
     stats: {
       experience: "Vite Eksperiencë",
-      completed: "Projekte të Përfunduara",
-      clients: "Klientë të Lumtur",
-      views: "Shikime Totale",
+      completed: "Projekte të Realizuara",
+      clients: "Klientë të Kënaqur",
+      views: "Shikime Totale të Videove",
     },
     portfolio: {
-      title: "Portfolio",
+      title: "Portofoli",
       all: "Të Gjitha",
       photography: "Fotografi",
       videography: "Videografi",
-      underConstruction: "Portfolio është duke u ndërtuar. Kthehuni së shpejti!",
-      noProjects: "Nuk ka projekte për këtë kategori.",
-      backToPortfolio: "Kthehu te Portfolio",
+      underConstruction: "Portofoli është duke u ndërtuar. Kthehuni së shpejti!",
+      noProjects: "Nuk ka projekte në këtë kategori.",
+      backToPortfolio: "Kthehu te Portofoli",
       aboutProject: "Rreth Projektit",
       clientCategory: "Klienti / Kategoria",
       service: "Shërbimi",
-      defaultDescription: "Një vështrim kinematografik dhe një qasje unike për të kapur momentet më të rëndësishme. Ky projekt thekson dedikimin tonë ndaj detajeve dhe artit vizual.",
+      defaultDescription: "Një këndvështrim kinematografik dhe një qasje e veçantë për të kapur momentet më të rëndësishme. Ky projekt pasqyron përkushtimin tonë ndaj detajeve dhe artit vizual.",
     },
     pricing: {
       title: "Investimi",
       subtitle: "Zgjidhni paketën që i përshtatet më mirë vizionit tuaj.",
-      mostPopular: "Më Popullorja",
+      mostPopular: "Më e Popullarizuara",
       selectPackage: "Zgjidh Paketën",
-      contactInfo: "Për të marrë çmimet dhe për detaje të mëtejshme rreth paketave:",
+      contactInfo: "Për të marrë çmimet dhe detaje të mëtejshme rreth paketave:",
       contactWhatsApp: "Na Kontaktoni në WhatsApp",
       essentialName: "Essential Story",
       essentialDesc: "Ideale për portrete intime dhe seanca të shkurtra.",
       essentialFeat: [
-        "Seancë 2 Orëshe në Studio",
-        "2 Ndryshime Veshjesh",
-        "15 Foto me Rezolucion të Lartë të Retushuara",
+        "Seancë 2-orëshe në Studio",
+        "2 Ndërrrime Veshjesh",
+        "15 Foto të Retushuara me Rezolucion të Lartë",
         "Galeri Private Online",
-        "E drejtë për Printim"
+        "E Drejta e Printimit"
       ],
       cinematicName: "Cinematic Legacy",
       cinematicDesc: "Mbulim i plotë për ditën tuaj të veçantë me montim premium.",
       cinematicFeat: [
         "8 Orë Mbulim",
         "2 Kinematografë",
-        "Film Përmbledhës 5-7 Minuta",
+        "Film Përmbledhës 5–7 Minuta",
         "Video e Plotë e Ceremonisë",
-        "Pamje me Dron (në varësi të motit)",
-        "Dorëzim Dixhital me USB & Online"
+        "Pamje me Dron (sipas kushteve të motit)",
+        "Dorëzim Dixhital me USB dhe Online"
       ],
       commercialName: "Commercial Vision",
       commercialDesc: "Ngritni markën tuaj me foto dhe video komerciale të nivelit të lartë.",
       commercialFeat: [
-        "Xhirime Gjysmë Dite (4 Orë)",
-        "Mbulim Foto & Video",
-        "Video Promovuese 30-sekonda",
+        "Xhirim Gjysmë-ditor (4 Orë)",
+        "Mbulim Fotografik dhe Video",
+        "Video Promocionale 30-sekondëshe",
         "30 Foto të Redaktuara të Produktit/Markës",
         "Licencë për Përdorim Komercial",
-        "Konsulencë për Drejtimin Krijues"
+        "Konsulencë për Drejtim Kreativ"
       ]
     },
     booking: {
       title: "Rezervo një Seancë",
-      subtitle: "Zgjidhni datën dhe orën tuaj të preferuar për të rezervuar eksperiencën tuaj kinematografike.",
+      subtitle: "Zgjidhni datën dhe orën tuaj të preferuar për të rezervuar seancën tuaj cinématografike.",
       selectDate: "Zgjidh Datën",
-      availableTimes: "Orarët e Disponueshëm",
-      details: "Detajet",
+      availableTimes: "Oraret e Disponueshme",
+      details: "Të Dhënat",
       fullName: "Emri i Plotë",
-      emailAddress: "Adresa e Email-it",
+      emailAddress: "Adresa Email",
       phoneNumber: "Numri i Telefonit",
-      eventType: "Lloji i Eventit",
+      eventType: "Lloji i Ngjarjes",
       package: "Paketa",
       selectPackageOption: "Zgjidh Paketën",
       notes: "Shënime Shtesë",
       confirmBooking: "Konfirmo Rezervimin",
       confirmedTitle: "Rezervimi u Konfirmua!",
       confirmedDesc: "Seanca juaj është rezervuar me sukses. Ju lutemi kontrolloni Portalin tuaj të Klientit.",
-      authNotice: "Do t'ju kërkohet të identifikoheni ose të krijoni një llogari përmes Portalit të Klientit për të konfirmuar rezervimin vuaj.",
-      errSelectDateTime: "Ju lutemi zgjidhni datën dhe kohën.",
+      authNotice: "Do t'ju kërkohet të identifikoheni ose të krijoni një llogari nëpërmjet Portalit të Klientit për të konfirmuar rezervimin tuaj.",
+      errSelectDateTime: "Ju lutemi zgjidhni datën dhe orën.",
       errCaptcha: "Ju lutemi konfirmoni që nuk jeni robot (CAPTCHA).",
       portrait: "Portret",
       wedding: "Dasmë",
@@ -290,68 +290,68 @@ const translations = {
       other: "Tjetër"
     },
     faq: {
-      title: "FAQ",
-      subtitle: "Pyetjet më të shpeshta rreth procesit tonë.",
+      title: "Pyetje të Shpeshta",
+      subtitle: "Pyetjet më të zakonshme rreth procesit tonë.",
       items: [
         {
-          q: "Sa kohë përpara duhet të rezervojmë?",
-          a: "Për dasma, ne rekomandojmë rezervimin 9-12 muaj përpara pasi kalendari ynë mbushet shpejt. Për portrete dhe seanca komerciale, 4-6 javë janë zakonisht të mjaftueshme."
+          q: "Sa kohë përpara duhet të bëjmë rezervimin?",
+          a: "Për dasma, rekomandojmë rezervimin 9–12 muaj përpara, pasi kalendari ynë mbushet shpejt. Për portrete dhe seanca komerciale, 4–6 javë janë zakonisht të mjaftueshme."
         },
         {
           q: "A udhëtoni për dasma jashtë vendit?",
-          a: "Absolutisht. Ne jemi të disponueshëm për shërbime në mbarë botën. Tarifat e udhëtimit dhe akomodimit llogariten sipas destinacionit dhe i shtohen paketës suaj."
+          a: "Absolutisht. Jemi të disponueshëm për xhirime kudo në botë. Shpenzimet e udhëtimit dhe akomodimit llogariten sipas destinacionit dhe i shtohen paketës tuaj."
         },
         {
-          q: "Kur do t'i marrim fotot/videot tona përfundimtare?",
-          a: "Galeritë e portreteve dorëzohen brenda 2 javëve. Galeritë e plota të dasmës dhe filmat kinematografikë zakonisht dorëzohen brenda 6-8 javëve, duke siguruar vëmendje të plotë ndaj detajeve gjatë redaktimit."
+          q: "Kur do t'i marrim fotot dhe videot tona?",
+          a: "Galeritë e portreteve dorëzohen brenda 2 javëve. Galeritë e plota të dasmës dhe filmat kinematografikë dorëzohen zakonisht brenda 6–8 javëve, duke siguruar kujdes maksimal gjatë montimit."
         },
         {
-          q: "A mund të marrim skedarët e papërpunuar (raw)?",
-          a: "Ne nuk ofrojmë skedarë të papërpunuar. Redaktimi është gjysma e magjisë së stilit tonë kinematografik, dhe ne dorëzojmë vetëm kryevepra të përfunduara dhe të ngjyrosura profesionalisht që përfaqësojnë standardin tonë të markës."
+          q: "A mund të marrim skedarët e papërpunuar (RAW)?",
+          a: "Ne nuk ofrojmë skedarë të papërpunuar. Montimi është gjysma e magjisë së stilit tonë, dhe ne dorëzojmë vetëm produkte të përfunduara dhe të korigjuara profesionalisht për ngjyrat, që pasqyrojnë standardin tonë të markës."
         }
       ]
     },
     testimonials: {
-      title: "Përshtypjet",
+      title: "Çfarë Thonë Klientët",
       items: [
         {
           name: "Arta & Besnik",
           role: "Klientë Dasme",
-          text: "2B Vision nuk na filmoi vetëm dasmën; ata kapën thelbin e historisë sonë të dashurisë. Cilësia kinematografike e punës së tyre është e papërsëritshme. U mbetëm pa fjalë."
+          text: "2B Vision nuk na filmoi vetëm dasmën — ata kapën thelbin e historisë sonë të dashurisë. Cilësia kinematografike e punës së tyre është e papërsëritshme. Mbetëm pa fjalë."
         },
         {
           name: "Mirela",
           role: "Drejtoreshë Krijuese",
-          text: "Bashkëpunimi me ta për fushatën tonë komerciale ishte një zbulim. Sjellin një nivel sofistikimi dhe elegance minimaliste që ngriti plotësisht markën tonë."
+          text: "Bashkëpunimi me ta për fushatën tonë komerciale ishte një përvojë e jashtëzakonshme. Ata sjellin një nivel sofistikimi dhe elegance minimaliste që e ngriti markën tonë në një tjetër dimension."
         },
         {
           name: "Erion",
           role: "Seancë Portretesh",
-          text: "Nuk jam ndjerë kurrë kaq rehat para kamerës. Drejtimi i ekipit është i butë, profesional, dhe rezulton në portrete që duken sikur i takojnë një reviste luksoze."
+          text: "Kurrë nuk jam ndjerë kaq rehat para kamerës. Drejtimi i ekipit është i durueshëm, profesional dhe rezulton në portrete që duken sikur i takojnë faqeve të një reviste luksoze."
         }
       ]
     },
     footer: {
-      desc: "Kapja e momenteve me saktësi kinematografike. Fotografi dhe videografi premium për dasma, projekte komerciale dhe portrete luksoze.",
+      desc: "Kapim momente me saktësi kinematografike. Fotografi dhe videografi premium për dasma, projekte komerciale dhe portrete luksoze.",
       contact: "Kontakt",
-      social: "Social",
+      social: "Rrjetet Sociale",
       privacy: "Politika e Privatësisë",
       terms: "Kushtet e Shërbimit",
       rights: "Të gjitha të drejtat e rezervuara."
     },
     dashboard: {
       welcome: "Mirë se erdhët përsëri",
-      signOut: "Çkyçu",
+      signOut: "Dil nga llogaria",
       yourSessions: "Seancat tuaja",
       noBookings: "Nuk keni asnjë rezervim aktiv.",
       bookSession: "Rezervo një Seancë",
       viewDetails: "Shiko Detajet",
-      yourMedia: "Mediat tuaja",
+      yourMedia: "Materialet tuaja",
       quickActions: "Veprime të Shpejta",
       viewPricing: "Shiko Çmimet",
       accountSettings: "Cilësimet e Llogarisë",
-      needHelp: "Keni Nevojë për Ndihmë?",
-      helpDesc: "Kontaktoni me producentin tuaj të dedikuar për pyetje rreth seancave tuaja të ardhshme.",
+      needHelp: "Keni nevojë për ndihmë?",
+      helpDesc: "Kontaktoni producentin tuaj të caktuar për çdo pyetje rreth seancave tuaja të ardhshme.",
       contactSupport: "Kontakto Mbështetjen"
     }
   }
