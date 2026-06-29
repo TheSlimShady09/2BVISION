@@ -60,7 +60,7 @@ export function Hero() {
               </>
             ) : (
               <>
-                Aty ku{" "}
+                Ku{" "}
                 <span
                   style={{
                     fontFamily: "'Playfair Display', serif",
@@ -75,8 +75,8 @@ export function Hero() {
                 >
                   Vizioni
                 </span>{" "}
-                tuaj kthehet në <br />
-                <span className="italic font-serif font-light text-zinc-200">art të përjetshëm.</span>
+                juaj bëhet <br />
+                <span className="italic font-serif font-light text-zinc-200">art i përjetshëm.</span>
               </>
             )}
           </h1>

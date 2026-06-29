@@ -230,7 +230,7 @@ const translations = {
     },
     pricing: {
       title: "Investimi",
-      subtitle: "Zgjidhni paketën që i përshtatet më mirë vizionit tuaj.",
+      subtitle: "Zgjidhni paketën që i përshtatet më mirë vizionit juaj.",
       mostPopular: "Më e Popullarizuara",
       selectPackage: "Zgjidh Paketën",
       contactInfo: "Për të marrë çmimet dhe detaje të mëtejshme rreth paketave:",
@@ -245,7 +245,7 @@ const translations = {
         "E Drejta e Printimit"
       ],
       cinematicName: "Cinematic Legacy",
-      cinematicDesc: "Mbulim i plotë për ditën tuaj të veçantë me montim premium.",
+      cinematicDesc: "Mbulim i plotë për ditën juaj të veçantë me montim premium.",
       cinematicFeat: [
         "8 Orë Mbulim",
         "2 Kinematografë",
@@ -255,7 +255,7 @@ const translations = {
         "Dorëzim Dixhital me USB dhe Online"
       ],
       commercialName: "Commercial Vision",
-      commercialDesc: "Ngritni markën tuaj me foto dhe video komerciale të nivelit të lartë.",
+      commercialDesc: "Ngritni markën juaj me foto dhe video komerciale të nivelit të lartë.",
       commercialFeat: [
         "Xhirim Gjysmë-ditor (4 Orë)",
         "Mbulim Fotografik dhe Video",
@@ -267,7 +267,7 @@ const translations = {
     },
     booking: {
       title: "Rezervo një Seancë",
-      subtitle: "Zgjidhni datën dhe orën tuaj të preferuar për të rezervuar seancën tuaj cinématografike.",
+      subtitle: "Zgjidhni datën dhe orën që preferoni për të rezervuar seancën juaj kinematografike.",
       selectDate: "Zgjidh Datën",
       availableTimes: "Oraret e Disponueshme",
       details: "Të Dhënat",
@@ -280,8 +280,8 @@ const translations = {
       notes: "Shënime Shtesë",
       confirmBooking: "Konfirmo Rezervimin",
       confirmedTitle: "Rezervimi u Konfirmua!",
-      confirmedDesc: "Seanca juaj është rezervuar me sukses. Ju lutemi kontrolloni Portalin tuaj të Klientit.",
-      authNotice: "Do t'ju kërkohet të identifikoheni ose të krijoni një llogari nëpërmjet Portalit të Klientit për të konfirmuar rezervimin tuaj.",
+      confirmedDesc: "Seanca juaj është rezervuar me sukses. Ju lutemi kontrolloni Portalin juaj të Klientit.",
+      authNotice: "Do t'ju kërkohet të identifikoheni ose të krijoni një llogari nëpërmjet Portalit të Klientit për të konfirmuar rezervimin juaj.",
       errSelectDateTime: "Ju lutemi zgjidhni datën dhe orën.",
       errCaptcha: "Ju lutemi konfirmoni që nuk jeni robot (CAPTCHA).",
       portrait: "Portret",
@@ -299,7 +299,7 @@ const translations = {
         },
         {
           q: "A udhëtoni për dasma jashtë vendit?",
-          a: "Absolutisht. Jemi të disponueshëm për xhirime kudo në botë. Shpenzimet e udhëtimit dhe akomodimit llogariten sipas destinacionit dhe i shtohen paketës tuaj."
+          a: "Absolutisht. Jemi të disponueshëm për xhirime kudo në botë. Shpenzimet e udhëtimit dhe akomodimit llogariten sipas destinacionit dhe i shtohen paketës juaj."
         },
         {
           q: "Kur do t'i marrim fotot dhe videot tona?",
@@ -342,16 +342,16 @@ const translations = {
     dashboard: {
       welcome: "Mirë se erdhët përsëri",
       signOut: "Dil nga llogaria",
-      yourSessions: "Seancat tuaja",
+      yourSessions: "Seancat juaja",
       noBookings: "Nuk keni asnjë rezervim aktiv.",
       bookSession: "Rezervo një Seancë",
       viewDetails: "Shiko Detajet",
-      yourMedia: "Materialet tuaja",
+      yourMedia: "Materialet juaja",
       quickActions: "Veprime të Shpejta",
       viewPricing: "Shiko Çmimet",
       accountSettings: "Cilësimet e Llogarisë",
       needHelp: "Keni nevojë për ndihmë?",
-      helpDesc: "Kontaktoni producentin tuaj të caktuar për çdo pyetje rreth seancave tuaja të ardhshme.",
+      helpDesc: "Kontaktoni producentin juaj të caktuar për çdo pyetje rreth seancave juaja të ardhshme.",
       contactSupport: "Kontakto Mbështetjen"
     }
   }
