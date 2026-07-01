@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { useCursor } from '../context/CursorContext';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -86,10 +86,10 @@ export function Hero() {
               onClick={scrollToBooking}
               onMouseEnter={setHovering}
               onMouseLeave={setDefault}
-              className="group relative px-8 py-4 bg-[#2d2d2d] text-white font-bold text-lg rounded-none hover:bg-[#1e1e1e] transition-colors flex items-center gap-3 overflow-hidden shadow-2xl shadow-black/50"
+              className="group relative px-8 py-4 bg-[#2d2d2d] text-white font-bold text-lg rounded-md hover:bg-[#1e1e1e] transition-colors flex items-center gap-3 overflow-hidden shadow-2xl shadow-black/50"
             >
               <span className="relative z-10 tracking-widest uppercase text-sm">{t('hero.bookSession')}</span>
-              <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+              <ArrowUpRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </a>
           </div>
         </motion.div>

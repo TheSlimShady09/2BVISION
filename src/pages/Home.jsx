@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 
 // A simple counter component that animates from 0 to `end`
 function Counter({ end, suffix = "", duration = 2 }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    if (!isInView) return;
+
     let start = 0;
     const increment = end / (duration * 60); // 60 frames per second
     
@@ -22,9 +26,9 @@ function Counter({ end, suffix = "", duration = 2 }) {
     }, 1000 / 60);
 
     return () => clearInterval(timer);
-  }, [end, duration]);
+  }, [isInView, end, duration]);
 
-  return <span>{count}{suffix}</span>;
+  return <span ref={ref}>{count}{suffix}</span>;
 }
 
 export function Home() {
@@ -67,10 +71,10 @@ export function Home() {
               <a 
                 href="#booking"
                 onClick={scrollToBooking}
-                className="group relative px-8 py-4 bg-white text-black font-bold text-lg rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+                className="group relative px-8 py-4 bg-white text-black font-bold text-lg rounded-md overflow-hidden transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
               >
                 <span>Book a Session</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </a>
             </div>
           </motion.div>
