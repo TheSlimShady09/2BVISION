@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import { scrollToSection } from '../lib/utils';
 
 // A simple counter component that animates from 0 to `end`
 function Counter({ end, suffix = "", duration = 2 }) {
@@ -34,8 +35,7 @@ function Counter({ end, suffix = "", duration = 2 }) {
 export function Home() {
   const scrollToBooking = (e) => {
     e.preventDefault();
-    const el = document.getElementById('booking');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    scrollToSection('booking');
   };
 
   return (

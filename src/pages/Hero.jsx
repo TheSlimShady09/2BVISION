@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useCursor } from '../context/CursorContext';
 import { useLanguage } from '../context/LanguageContext';
+import { scrollToSection } from '../lib/utils';
 
 export function Hero() {
   const { setHovering, setDefault } = useCursor();
@@ -10,8 +11,7 @@ export function Hero() {
 
   const scrollToBooking = (e) => {
     e.preventDefault();
-    const el = document.getElementById('booking');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    scrollToSection('booking');
   };
 
   return (

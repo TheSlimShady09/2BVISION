@@ -3,6 +3,7 @@ import { Check, Camera, Video, Star, MessageCircle } from 'lucide-react';
 import { useBooking } from '../context/BookingContext';
 import { useCursor } from '../context/CursorContext';
 import { useLanguage } from '../context/LanguageContext';
+import { scrollToSection } from '../lib/utils';
 
 const packages = [
   {
@@ -59,10 +60,7 @@ export function Pricing() {
 
   const handleSelectPackage = (pkg) => {
     setGlobalSelectedPackage(pkg.id);
-    const element = document.getElementById('booking');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToSection('booking');
   };
 
   return (

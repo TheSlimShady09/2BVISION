@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '../../lib/utils';
+import { cn, scrollToSection } from '../../lib/utils';
 import { useAuth } from '../../context/AuthContext';
 import { useCursor } from '../../context/CursorContext';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -66,10 +66,7 @@ export function Navbar() {
     if (location.pathname === '/' && location.hash) {
       const id = location.hash.replace('#', '');
       setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
+        scrollToSection(id);
       }, 100);
     }
   }, [location]);
@@ -85,12 +82,8 @@ export function Navbar() {
 
     if (location.pathname !== '/') {
       navigate(`/#${path}`);
-    } else {
-      const element = document.getElementById(path);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        window.history.pushState(null, '', `/#${path}`);
-      }
+    } else if (scrollToSection(path)) {
+      window.history.pushState(null, '', `/#${path}`);
     }
   };
 
