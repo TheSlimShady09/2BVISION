@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  /*
+   * NOTE: `scroll-behavior: smooth` is intentionally NOT set here.
+   * In-page scrolling is animated in JS via scrollToSection() (lib/utils.js)
+   * for reliable behavior on Android (Samsung Internet / Xiaomi MIUI). A CSS
+   * smooth rule would re-animate every programmatic scrollTo and fight that
+   * animation, causing the scroll to stall on those phones.
+   */
   body {
     @apply bg-background text-foreground antialiased overflow-x-hidden;
   }
