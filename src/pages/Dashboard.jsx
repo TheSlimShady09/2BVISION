@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Clock, CreditCard, LogOut, Settings, User, Download, Loader2, Trash2, AlertTriangle } from 'lucide-react';
+import { Calendar, Clock, CreditCard, LogOut, Settings, User, Download, Loader2, Trash2, AlertTriangle, Mail, Lock, X } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import toast from 'react-hot-toast';
 
 export function Dashboard() {
   const { user, logout, deleteAccount } = useAuth();
@@ -15,6 +16,62 @@ export function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // Account settings state
+  const [showSettings, setShowSettings] = useState(false);
+  const [fullName, setFullName] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [isSavingProfile, setIsSavingProfile] = useState(false);
+  const [isSavingPassword, setIsSavingPassword] = useState(false);
+
+  const openSettings = () => {
+    setFullName(user?.full_name || user?.name || '');
+    setNewPassword('');
+    setShowSettings(true);
+  };
+
+  const handleSaveProfile = async () => {
+    const trimmed = fullName.trim();
+    if (!trimmed) {
+      toast.error(t('dashboard.nameRequired'));
+      return;
+    }
+    setIsSavingProfile(true);
+    try {
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .update({ full_name: trimmed })
+        .eq('id', user.id);
+      if (profileError) throw profileError;
+      // Keep auth metadata in sync so it shows up on next login too.
+      await supabase.auth.updateUser({ data: { full_name: trimmed } }).catch(() => {});
+      toast.success(t('dashboard.settingsSaved'));
+    } catch (err) {
+      console.error('[Settings] save profile error:', err);
+      toast.error(t('dashboard.settingsError'));
+    } finally {
+      setIsSavingProfile(false);
+    }
+  };
+
+  const handleUpdatePassword = async () => {
+    if (newPassword.length < 6) {
+      toast.error(t('dashboard.passwordTooShort'));
+      return;
+    }
+    setIsSavingPassword(true);
+    try {
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (error) throw error;
+      setNewPassword('');
+      toast.success(t('dashboard.passwordUpdated'));
+    } catch (err) {
+      console.error('[Settings] update password error:', err);
+      toast.error(err.message || t('dashboard.settingsError'));
+    } finally {
+      setIsSavingPassword(false);
+    }
+  };
 
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
@@ -203,7 +260,8 @@ export function Dashboard() {
                     <CreditCard className="w-5 h-5 group-hover:scale-110 transition-transform" />
                     <span className="font-medium text-sm">{t('dashboard.viewPricing')}</span>
                   </button>
-                  <button 
+                  <button
+                    onClick={openSettings}
                     className="flex items-center gap-3 w-full p-4 bg-zinc-50 border border-zinc-200 hover:border-slate-300 transition-colors text-[#555555] hover:text-[#2d2d2d] group"
                   >
                     <Settings className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -225,28 +283,141 @@ export function Dashboard() {
                   {t('dashboard.contactSupport')}
                 </a>
               </div>
-
-              {/* Danger Zone - Delete Account */}
-              <div className="bg-white p-8 border border-red-200 shadow-sm">
-                <h3 className="text-sm font-bold text-red-600 mb-3 uppercase tracking-widest flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4" /> {t('dashboard.dangerZone')}
-                </h3>
-                <p className="text-[#707070] text-sm mb-6 font-light leading-relaxed">
-                  {t('dashboard.deleteAccountDesc')}
-                </p>
-                <button
-                  onClick={() => setShowDeleteModal(true)}
-                  className="flex items-center gap-2 w-full justify-center px-6 py-3 border border-red-300 text-red-600 hover:bg-red-50 transition-colors uppercase tracking-widest text-xs font-bold"
-                >
-                  <Trash2 className="w-4 h-4" />
-                  {t('dashboard.deleteAccount')}
-                </button>
-              </div>
             </div>
 
           </div>
         )}
       </div>
+
+      {/* Account Settings Modal */}
+      <AnimatePresence>
+        {showSettings && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-8 overflow-y-auto"
+            onClick={() => setShowSettings(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white max-w-lg w-full my-auto border border-zinc-200 shadow-2xl"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between p-6 border-b border-zinc-200">
+                <h3 className="text-xl font-bold text-[#2d2d2d] flex items-center gap-3">
+                  <Settings className="w-5 h-5 text-slate-400" />
+                  {t('dashboard.accountSettings')}
+                </h3>
+                <button
+                  onClick={() => setShowSettings(false)}
+                  className="text-slate-400 hover:text-[#2d2d2d] transition-colors"
+                  aria-label={t('dashboard.cancel')}
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="p-6 space-y-8">
+                {/* Profile Section */}
+                <div>
+                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">{t('dashboard.profileSection')}</h4>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-xs font-bold text-[#707070] uppercase tracking-wider mb-2">{t('dashboard.fullNameLabel')}</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <User className="h-4 w-4 text-slate-400" />
+                        </div>
+                        <input
+                          type="text"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          placeholder={t('dashboard.fullNameLabel')}
+                          className="block w-full pl-10 pr-3 py-3 border border-zinc-200 bg-transparent text-[#2d2d2d] focus:outline-none focus:ring-1 focus:ring-slate-400 focus:border-slate-400 text-sm transition-all"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-[#707070] uppercase tracking-wider mb-2">{t('dashboard.emailLabel')}</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Mail className="h-4 w-4 text-slate-400" />
+                        </div>
+                        <input
+                          type="email"
+                          value={user?.email || ''}
+                          readOnly
+                          disabled
+                          className="block w-full pl-10 pr-3 py-3 border border-zinc-200 bg-zinc-50 text-[#707070] text-sm cursor-not-allowed"
+                        />
+                      </div>
+                      <p className="text-[11px] text-slate-400 mt-1.5">{t('dashboard.emailReadonly')}</p>
+                    </div>
+                    <button
+                      onClick={handleSaveProfile}
+                      disabled={isSavingProfile}
+                      className="flex items-center justify-center gap-2 px-6 py-3 bg-[#2d2d2d] text-white hover:bg-[#1e1e1e] transition-colors uppercase tracking-widest text-xs font-bold disabled:opacity-70"
+                    >
+                      {isSavingProfile ? <Loader2 className="w-4 h-4 animate-spin" /> : t('dashboard.saveChanges')}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Security Section */}
+                <div className="pt-2 border-t border-zinc-100">
+                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 pt-6">{t('dashboard.securitySection')}</h4>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-xs font-bold text-[#707070] uppercase tracking-wider mb-2">{t('dashboard.newPasswordLabel')}</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Lock className="h-4 w-4 text-slate-400" />
+                        </div>
+                        <input
+                          type="password"
+                          value={newPassword}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          placeholder={t('dashboard.newPasswordPlaceholder')}
+                          className="block w-full pl-10 pr-3 py-3 border border-zinc-200 bg-transparent text-[#2d2d2d] focus:outline-none focus:ring-1 focus:ring-slate-400 focus:border-slate-400 text-sm transition-all"
+                        />
+                      </div>
+                    </div>
+                    <button
+                      onClick={handleUpdatePassword}
+                      disabled={isSavingPassword || !newPassword}
+                      className="flex items-center justify-center gap-2 px-6 py-3 border border-zinc-200 text-[#555555] hover:bg-zinc-50 transition-colors uppercase tracking-widest text-xs font-bold disabled:opacity-50"
+                    >
+                      {isSavingPassword ? <Loader2 className="w-4 h-4 animate-spin" /> : t('dashboard.updatePassword')}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Danger Zone */}
+                <div className="pt-2 border-t border-red-100">
+                  <h4 className="text-xs font-bold text-red-600 uppercase tracking-widest mb-3 pt-6 flex items-center gap-2">
+                    <AlertTriangle className="w-4 h-4" /> {t('dashboard.dangerZone')}
+                  </h4>
+                  <p className="text-[#707070] text-sm mb-4 font-light leading-relaxed">
+                    {t('dashboard.deleteAccountDesc')}
+                  </p>
+                  <button
+                    onClick={() => setShowDeleteModal(true)}
+                    className="flex items-center gap-2 w-full justify-center px-6 py-3 border border-red-300 text-red-600 hover:bg-red-50 transition-colors uppercase tracking-widest text-xs font-bold"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    {t('dashboard.deleteAccount')}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Delete Account Confirmation Modal */}
       <AnimatePresence>
@@ -255,7 +426,7 @@ export function Dashboard() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 px-4"
             onClick={() => !isDeleting && setShowDeleteModal(false)}
           >
             <motion.div
