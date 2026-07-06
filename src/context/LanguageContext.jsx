@@ -176,7 +176,15 @@ const translations = {
       accountSettings: "Account Settings",
       needHelp: "Need Help?",
       helpDesc: "Contact your dedicated producer for questions about your upcoming sessions.",
-      contactSupport: "Contact Support"
+      contactSupport: "Contact Support",
+      dangerZone: "Danger Zone",
+      deleteAccount: "Delete Account",
+      deleteAccountDesc: "Permanently delete your account and all associated data.",
+      deleteConfirmTitle: "Delete your account?",
+      deleteConfirmDesc: "This action is permanent and cannot be undone. All your bookings and data will be permanently removed.",
+      deleteConfirmButton: "Yes, delete my account",
+      deleting: "Deleting...",
+      cancel: "Cancel"
     }
   },
   sq: {
@@ -352,7 +360,15 @@ const translations = {
       accountSettings: "Cilësimet e Llogarisë",
       needHelp: "Keni nevojë për ndihmë?",
       helpDesc: "Kontaktoni producentin juaj të caktuar për çdo pyetje rreth seancave juaja të ardhshme.",
-      contactSupport: "Kontakto Mbështetjen"
+      contactSupport: "Kontakto Mbështetjen",
+      dangerZone: "Zonë e Rrezikshme",
+      deleteAccount: "Fshi Llogarinë",
+      deleteAccountDesc: "Fshi përgjithmonë llogarinë tënde dhe të gjitha të dhënat e lidhura me të.",
+      deleteConfirmTitle: "Të fshihet llogaria?",
+      deleteConfirmDesc: "Ky veprim është i përhershëm dhe nuk mund të zhbëhet. Të gjitha rezervimet dhe të dhënat e tua do të fshihen përgjithmonë.",
+      deleteConfirmButton: "Po, fshi llogarinë time",
+      deleting: "Po fshihet...",
+      cancel: "Anulo"
     }
   }
 };

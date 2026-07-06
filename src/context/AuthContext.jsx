@@ -152,6 +152,28 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const deleteAccount = async () => {
+    try {
+      // Calls a SECURITY DEFINER function in Supabase that removes the
+      // current user's data and auth record. Requires the SQL function
+      // `public.delete_own_account()` to exist (see setup notes).
+      const { error } = await supabase.rpc('delete_own_account');
+      if (error) throw error;
+
+      // Account is gone — clear the (now invalid) local session.
+      await supabase.auth.signOut().catch(() => {});
+      setUser(null);
+      setSession(null);
+      toast.success('Your account has been deleted.');
+      window.location.href = '/';
+      return { success: true };
+    } catch (error) {
+      console.error('[Auth] deleteAccount error:', error);
+      toast.error('Could not delete account. Please try again.');
+      return { success: false, error: error.message };
+    }
+  };
+
   const logout = async () => {
     try {
       await supabase.auth.signOut();
@@ -167,7 +189,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, session, isLoading, login, signup, signInWithGoogle, signInWithGoogleIdToken, logout }}
+      value={{ user, session, isLoading, login, signup, signInWithGoogle, signInWithGoogleIdToken, logout, deleteAccount }}
     >
       {children}
     </AuthContext.Provider>

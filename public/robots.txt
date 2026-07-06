@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.2bvision.al/sitemap.xml
+Sitemap: https://www.2bvisionstudio.com/sitemap.xml

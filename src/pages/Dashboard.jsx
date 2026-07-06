@@ -1,18 +1,28 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { motion } from 'framer-motion';
-import { Calendar, Clock, CreditCard, LogOut, Settings, User, Download, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar, Clock, CreditCard, LogOut, Settings, User, Download, Loader2, Trash2, AlertTriangle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 
 export function Dashboard() {
-  const { user, logout } = useAuth();
+  const { user, logout, deleteAccount } = useAuth();
   const navigate = useNavigate();
   const { t, language } = useLanguage();
   const [bookings, setBookings] = useState([]);
   const [deliverables, setDeliverables] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDeleteAccount = async () => {
+    setIsDeleting(true);
+    await deleteAccount();
+    // deleteAccount redirects on success; on failure it shows a toast.
+    setIsDeleting(false);
+    setShowDeleteModal(false);
+  };
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -208,18 +218,85 @@ export function Dashboard() {
                 <p className="text-[#a0a0a0] text-sm mb-8 font-light leading-relaxed">
                   {t('dashboard.helpDesc')}
                 </p>
-                <a 
-                  href="mailto:hello@2bvision.com" 
+                <a
+                  href="mailto:hello@2bvision.com"
                   className="inline-block px-6 py-3 bg-white text-[#2d2d2d] text-xs font-bold tracking-widest uppercase hover:bg-[#e8e8e8] transition-colors"
                 >
                   {t('dashboard.contactSupport')}
                 </a>
               </div>
+
+              {/* Danger Zone - Delete Account */}
+              <div className="bg-white p-8 border border-red-200 shadow-sm">
+                <h3 className="text-sm font-bold text-red-600 mb-3 uppercase tracking-widest flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4" /> {t('dashboard.dangerZone')}
+                </h3>
+                <p className="text-[#707070] text-sm mb-6 font-light leading-relaxed">
+                  {t('dashboard.deleteAccountDesc')}
+                </p>
+                <button
+                  onClick={() => setShowDeleteModal(true)}
+                  className="flex items-center gap-2 w-full justify-center px-6 py-3 border border-red-300 text-red-600 hover:bg-red-50 transition-colors uppercase tracking-widest text-xs font-bold"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  {t('dashboard.deleteAccount')}
+                </button>
+              </div>
             </div>
-            
+
           </div>
         )}
       </div>
+
+      {/* Delete Account Confirmation Modal */}
+      <AnimatePresence>
+        {showDeleteModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+            onClick={() => !isDeleting && setShowDeleteModal(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white max-w-md w-full p-8 border border-zinc-200 shadow-2xl"
+            >
+              <div className="w-14 h-14 bg-red-50 border border-red-200 flex items-center justify-center mb-6">
+                <AlertTriangle className="w-7 h-7 text-red-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-[#2d2d2d] mb-3">{t('dashboard.deleteConfirmTitle')}</h3>
+              <p className="text-[#707070] text-sm mb-8 font-light leading-relaxed">
+                {t('dashboard.deleteConfirmDesc')}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={() => setShowDeleteModal(false)}
+                  disabled={isDeleting}
+                  className="flex-1 px-6 py-3 border border-zinc-200 text-[#555555] hover:bg-zinc-50 transition-colors uppercase tracking-widest text-xs font-bold disabled:opacity-50"
+                >
+                  {t('dashboard.cancel')}
+                </button>
+                <button
+                  onClick={handleDeleteAccount}
+                  disabled={isDeleting}
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-red-600 text-white hover:bg-red-700 transition-colors uppercase tracking-widest text-xs font-bold disabled:opacity-70"
+                >
+                  {isDeleting ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    t('dashboard.deleteConfirmButton')
+                  )}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
