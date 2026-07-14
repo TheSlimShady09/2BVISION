@@ -43,7 +43,7 @@ export function Footer() {
                   onMouseLeave={setDefault}
                 >
                   <Phone className="w-4 h-4" />
-                  +355 069 562 0202
+                  +355 69 562 0202
                 </a>
               </li>
               <li>
