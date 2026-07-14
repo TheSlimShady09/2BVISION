@@ -169,7 +169,7 @@ export function AuthProvider({ children }) {
       return { success: true };
     } catch (error) {
       console.error('[Auth] deleteAccount error:', error);
-      toast.error('Could not delete account. Please try again.');
+      toast.error(error?.message || 'Could not delete account. Please try again.');
       return { success: false, error: error.message };
     }
   };
