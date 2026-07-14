@@ -41,40 +41,14 @@ export function Hero() {
             {language === 'en' ? (
               <>
                 Where your{" "}
-                <span
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontStyle: "italic",
-                    fontWeight: 700,
-                    color: "#ffffff",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                    fontSize: "1.15em",
-                    display: "inline-block",
-                  }}
-                >
-                  Vision
-                </span>{" "}
+                <span className="italic font-serif font-light text-zinc-200">vision</span>{" "}
                 becomes <br />
                 <span className="italic font-serif font-light text-zinc-200">timeless art.</span>
               </>
             ) : (
               <>
                 Ku{" "}
-                <span
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontStyle: "italic",
-                    fontWeight: 700,
-                    color: "#ffffff",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                    fontSize: "1.15em",
-                    display: "inline-block",
-                  }}
-                >
-                  Vizioni
-                </span>{" "}
+                <span className="italic font-serif font-light text-zinc-200">vizioni</span>{" "}
                 juaj bëhet <br />
                 <span className="italic font-serif font-light text-zinc-200">art i përjetshëm.</span>
               </>

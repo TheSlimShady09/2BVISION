@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 const AuthContext = createContext();
 
-const ADMIN_EMAILS = ['2bvision.2b.al@gmail.com', 'roanballa6@gmail.com'];
+const ADMIN_EMAILS = ['2bvisional@gmail.com', 'roanballa6@gmail.com'];
 
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null);

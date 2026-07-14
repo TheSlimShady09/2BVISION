@@ -62,7 +62,7 @@ export function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-4 uppercase leading-tight">
-              Where your vision becomes <span className="text-zinc-400 italic">timeless art.</span>
+              Where your <span className="text-zinc-400 italic">vision</span> becomes <span className="text-zinc-400 italic">timeless art.</span>
             </h1>
             <p className="text-lg md:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto font-light italic">
               Aty ku vizioni juaj kthehet në art të përjetshëm.

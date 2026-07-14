@@ -48,13 +48,15 @@ export function Footer() {
               </li>
               <li>
                 <a 
-                  href="mailto:2bvision.2b.al@gmail.com" 
-                  className="flex items-center gap-2 text-[#c8c8c8] hover:text-white text-sm transition-colors w-fit"
+                  href="mailto:2bvisional@gmail.com" 
+                  className="flex items-center justify-center sm:justify-start gap-3 text-zinc-400 hover:text-white transition-colors group"
                   onMouseEnter={setHovering}
                   onMouseLeave={setDefault}
                 >
-                  <Mail className="w-4 h-4" />
-                  2bvision.2b.al@gmail.com
+                  <Mail className="w-5 h-5 text-white/50 group-hover:text-white transition-colors" />
+                  <span className="text-sm">
+                  2bvisional@gmail.com
+                  </span>
                 </a>
               </li>
             </ul>
